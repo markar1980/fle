@@ -113,7 +113,8 @@ function allowSearch() {
     (document.getElementById("flight-from").value != "") &&
     (document.getElementById("flight-to").value != "") &&
     (document.getElementById("leaving-date").value != "") &&
-    (document.getElementById("return-date").value != "")
+    (document.getElementById("return-date").value != "") &&
+    checkFlightDate()
   ) {
     if (document.getElementById("flight-from").value == document.getElementById("flight-to").value) {
       window.alert("Miejsce wylotu i docelowe nie mogą być tożsame");
@@ -129,12 +130,11 @@ function allowSearch() {
 
 function loadFlightData() {
   const url = "https://raw.githubusercontent.com/markar1980/fle/master/JSON/dataJSON.json";
-  //const url = "JSON/dataJSON.json"
-  
+
   fetch(url)
-  .then(response => response.json())
-  .then(data => searchFlight(data.jsonFlights))
-  .catch(err => console.error(err)); 
+    .then(response => response.json())
+    .then(data => searchFlight(data.jsonFlights))
+    .catch(err => console.error(err));
 }
 
 /*
@@ -162,13 +162,14 @@ function searchFlight(jsonFlights) {
   /*zmienna sprawdzająca czy lot jest powrotny - jeśli tak będzie true, w przeciwnym wypadku false*/
 
   if (returnFlight == true) {
-      document.getElementById("search-window-id").style.display = "none";
-      document.getElementById("search-result-wrapper-id").style.display = "inline-block";
+    document.getElementById("search-window-id").style.display = "none";
+    document.getElementById("search-result-wrapper-id").style.display = "inline-block";
+    document.getElementById("return-flight-result-wrapper-id").style.display = "inline-block";
   }
   else {
-      document.getElementById("search-window-id").style.display = "none";
-      document.getElementById("search-result-wrapper-id").style.display = "inline-block";
-      document.getElementById("return-flight-result-wrapper-id").style.display = "none";
+    document.getElementById("search-window-id").style.display = "none";
+    document.getElementById("search-result-wrapper-id").style.display = "inline-block";
+    document.getElementById("return-flight-result-wrapper-id").style.display = "none";
   }
 
   /*Poniższy fragment kodu tworzy zmienne na podstawie informacji podanych w formularzu wyszukiwania */
@@ -182,45 +183,45 @@ function searchFlight(jsonFlights) {
   lot który spełnia zarówno warunek miejsca startowego i miejsca docelotwego dla lotu w jedną stronę, 
   a następnie obiekt searchResult{} zostaje wypełniony elementami*/
   for (let i = 0; i < jsonFlights.length; i++) {
-      if (
-          (flightFrom == jsonFlights[i].start) &&
-          (flightTo == jsonFlights[i].end)
-      ) {
-          searchResult = {
-              from: flightFrom,
-              to: flightTo,
-              day: leavingDate,
-              time: jsonFlights[i].time,
-              start: jsonFlights[i].startTime,
-              end: jsonFlights[i].endTime,
-              passengers: numberPassengers,
-              price: jsonFlights[i].basicPrice,
-              bag1: jsonFlights[i].cabinPrice,
-              bag2: jsonFlights[i].registerPrice,
-              plane: jsonFlights[i].plane
-          }
+    if (
+      (flightFrom == jsonFlights[i].start) &&
+      (flightTo == jsonFlights[i].end)
+    ) {
+      searchResult = {
+        from: flightFrom,
+        to: flightTo,
+        day: leavingDate,
+        time: jsonFlights[i].time,
+        start: jsonFlights[i].startTime,
+        end: jsonFlights[i].endTime,
+        passengers: numberPassengers,
+        price: jsonFlights[i].basicPrice,
+        bag1: jsonFlights[i].cabinPrice,
+        bag2: jsonFlights[i].registerPrice,
+        plane: jsonFlights[i].plane
       }
-      document.getElementById("sum1").innerHTML = searchResult.from;
-      document.getElementById("sum2").innerHTML = searchResult.to;
-      document.getElementById("sum3").innerHTML = searchResult.passengers;
-      document.getElementById("sum4").innerHTML = returnFlight;
-      document.getElementById("sum5").innerHTML = searchResult.day;
-      document.getElementById("sum6").innerHTML = searchResult.start;
-      document.getElementById("sum7").innerHTML = searchResult.end;
-      document.getElementById("sum11").innerHTML = searchResult.time;
-      document.getElementById("sum12").innerHTML = searchResult.plane;
-      document.getElementById("sum13").innerHTML = searchResult.price + ",00 zł";
-      document.getElementById("sum14").innerHTML = (searchResult.price * searchResult.passengers + ",00 zł");
-      document.getElementById("sum16").innerHTML = 0;
-      //document.getElementById("sum17").innerHTML = searchResult.bag1;
-      document.getElementById("sum17").innerHTML = 0 + ",00 zł";
-      document.getElementById("sum18").innerHTML = 0;
-      //document.getElementById("sum19").innerHTML = searchResult.bag2;
-      document.getElementById("sum19").innerHTML = 0 + ",00 zł";
-      document.getElementById("sum20").innerHTML = (searchResult.price * searchResult.passengers + ",00 zł");
-      // summary();
-      // showSum();
-      // TUTAJ TRZEBA BY ZACZĄĆ BUDOWAĆ TO ABY SIĘ PODSUMOWANIA DODAWAŁY
+    }
+    document.getElementById("sum1").innerHTML = searchResult.from;
+    document.getElementById("sum2").innerHTML = searchResult.to;
+    document.getElementById("sum3").innerHTML = searchResult.passengers;
+    document.getElementById("sum4").innerHTML = returnFlight ? "tak" : "nie";
+    document.getElementById("sum5").innerHTML = searchResult.day;
+    document.getElementById("sum6").innerHTML = searchResult.start;
+    document.getElementById("sum7").innerHTML = searchResult.end;
+    document.getElementById("sum11").innerHTML = searchResult.time;
+    document.getElementById("sum12").innerHTML = searchResult.plane;
+    document.getElementById("sum13").innerHTML = searchResult.price + ",00 zł";
+    document.getElementById("sum14").innerHTML = (searchResult.price * searchResult.passengers + ",00 zł");
+    document.getElementById("sum16").innerHTML = 0;
+    //document.getElementById("sum17").innerHTML = searchResult.bag1;
+    document.getElementById("sum17").innerHTML = 0 + ",00 zł";
+    document.getElementById("sum18").innerHTML = 0;
+    //document.getElementById("sum19").innerHTML = searchResult.bag2;
+    document.getElementById("sum19").innerHTML = 0 + ",00 zł";
+    document.getElementById("sum20").innerHTML = (searchResult.price * searchResult.passengers + ",00 zł");
+    // summary();
+    // showSum();
+    // TUTAJ TRZEBA BY ZACZĄĆ BUDOWAĆ TO ABY SIĘ PODSUMOWANIA DODAWAŁY
   }
 
   console.log(searchResult);
@@ -234,54 +235,58 @@ function searchFlight(jsonFlights) {
   document.getElementById("flight-to-end-time-id").innerText = searchResult.end;
   document.getElementById("flight-to-pass-no-id").innerText = searchResult.passengers;
   document.getElementById("flight-to-price-id").innerText = searchResult.price;
+  document.getElementById("flight-to-bag1-id").innerText = searchResult.bag1;
+  document.getElementById("flight-to-bag2-id").innerText = searchResult.bag2;
 
   /*zmienna teczhniczna - utworzona na potrzeby debugowania*/
   var planeType = searchResult.plane;
   console.log("Rodzaj samolotu to: " + planeType);
 
   if (returnFlight == true) {
-      /*Utworzony zostaje obiekt z wynikami wyszukiwania lotu powrotnego*/
-      returnResult = {};
+    /*Utworzony zostaje obiekt z wynikami wyszukiwania lotu powrotnego*/
+    returnResult = {};
 
-      /*W tablicy w formacie JSON zawierającej obiekty określające warianty lotów zostaje wyszukany 
+    /*W tablicy w formacie JSON zawierającej obiekty określające warianty lotów zostaje wyszukany 
 lot który spełnia zarówno warunek miejsca startowego i miejsca docelotwego dla lotu powrotnego, 
 a następnie obiekt returnResult{} zostaje wypełniony elementami*/
-      for (let j = 0; j < jsonFlights.length; j++) {
-          if (
-              (flightTo == jsonFlights[j].start) &&
-              (flightFrom == jsonFlights[j].end)
-          ) {
-              returnResult = {
-                  from: flightTo,
-                  to: flightFrom,
-                  time: jsonFlights[j].time,
-                  day: returnDate,
-                  start: jsonFlights[j].startTime,
-                  end: jsonFlights[j].endTime,
-                  passengers: numberPassengers,
-                  price: jsonFlights[j].basicPrice,
-                  bag1: jsonFlights[j].cabinPrice,
-                  bag2: jsonFlights[j].registerPrice,
-                  plane: jsonFlights[j].plane
-              }
-              console.log(returnResult);
+    for (let j = 0; j < jsonFlights.length; j++) {
+      if (
+        (flightTo == jsonFlights[j].start) &&
+        (flightFrom == jsonFlights[j].end)
+      ) {
+        returnResult = {
+          from: flightTo,
+          to: flightFrom,
+          time: jsonFlights[j].time,
+          day: returnDate,
+          start: jsonFlights[j].startTime,
+          end: jsonFlights[j].endTime,
+          passengers: numberPassengers,
+          price: jsonFlights[j].basicPrice,
+          bag1: jsonFlights[j].cabinPrice,
+          bag2: jsonFlights[j].registerPrice,
+          plane: jsonFlights[j].plane
+        }
+        console.log(returnResult);
 
-              /*Poniżsyz kod wypełnia kafelki z wynikami wyszukiwania lotu powrotnego*/
-              document.getElementById("return-flight-starting-place-id").innerText = returnResult.from;
-              document.getElementById("return-flight-destination-id").innerText = returnResult.to;
-              document.getElementById("return-flight-day-date-id").innerText = returnResult.day;
-              document.getElementById("return-flight-time-id").innerText = returnResult.time;
-              document.getElementById("return-flight-starting-time-id").innerText = returnResult.start;
-              document.getElementById("return-flight-end-time-id").innerText = returnResult.end;
-              document.getElementById("return-flight-pass-no-id").innerText = returnResult.passengers;
-              document.getElementById("return-flight-price-id").innerText = returnResult.price;
-          }
+        /*Poniżsyz kod wypełnia kafelki z wynikami wyszukiwania lotu powrotnego*/
+        document.getElementById("return-flight-starting-place-id").innerText = returnResult.from;
+        document.getElementById("return-flight-destination-id").innerText = returnResult.to;
+        document.getElementById("return-flight-day-date-id").innerText = returnResult.day;
+        document.getElementById("return-flight-time-id").innerText = returnResult.time;
+        document.getElementById("return-flight-starting-time-id").innerText = returnResult.start;
+        document.getElementById("return-flight-end-time-id").innerText = returnResult.end;
+        document.getElementById("return-flight-pass-no-id").innerText = returnResult.passengers;
+        document.getElementById("return-flight-price-id").innerText = returnResult.price;
+        document.getElementById("return-flight-bag1-id").innerText = returnResult.bag1;
+        document.getElementById("return-flight-bag2-id").innerText = returnResult.bag2;
       }
-      document.getElementById("sum8").innerHTML = returnResult.day;
-      document.getElementById("sum9").innerHTML = returnResult.start;
-      document.getElementById("sum10").innerHTML = returnResult.end;
-      document.getElementById("sum14").innerHTML = (searchResult.price * 2 * searchResult.passengers + ",00 zł");
-      document.getElementById("sum20").innerHTML = (searchResult.price * 2 * searchResult.passengers + ",00 zł");
+    }
+    document.getElementById("sum8").innerHTML = returnResult.day;
+    document.getElementById("sum9").innerHTML = returnResult.start;
+    document.getElementById("sum10").innerHTML = returnResult.end;
+    document.getElementById("sum14").innerHTML = (searchResult.price * 2 * searchResult.passengers + ",00 zł");
+    document.getElementById("sum20").innerHTML = (searchResult.price * 2 * searchResult.passengers + ",00 zł");
   }
 }
 
@@ -480,37 +485,34 @@ document.getElementById("log-button-id").onclick = loadUsersData;
 function loadUsersData() {
   const url = "https://raw.githubusercontent.com/markar1980/fle/master/JSON/dataJSON.json";
   //const url = "JSON/dataJSON.json"
-  
+
   fetch(url)
-  .then(response => response.json())
-  .then(data => logIn(data.jsonLogin))
-  .catch(err => console.error(err)); 
+    .then(response => response.json())
+    .then(data => logIn(data.jsonLogin))
+    .catch(err => console.error(err));
 }
 
-
-
-
 var timeout = 3 * 60000; //3 minuty => 3 * 60000
-var intervalLog;
+var intervalLog; //
 
 function logIn(jsonLogin) {
   for (let i = 0; i < jsonLogin.length; i++) {
     if ((jsonLogin[i].user == document.getElementById("username-id").value) &&
-        (jsonLogin[i].pass == document.getElementById("password-id").value)) {
-        loginObject = {
-            user: document.getElementById("username-id").value,
-            password: "",
-            name: jsonLogin[i].name,
-            surname: jsonLogin[i].surname,
-            email: jsonLogin[i].email
-        };
-        console.log(loginObject);
-        loggedIn = true;
-        console.log("Zalogowany: " + loggedIn);
-        document.getElementById("login-window-id").style.display = "none";
-        document.getElementById("logout-button-id").style.display = "block";
-        openSeatMap();//uruchamia funkcję wyboru mapy siedzeń w zależności od rodzaju samolotu
-        setupTimers(); //uruchamia timer        
+      (jsonLogin[i].pass == document.getElementById("password-id").value)) {
+      loginObject = {
+        user: document.getElementById("username-id").value,
+        password: "",
+        name: jsonLogin[i].name,
+        surname: jsonLogin[i].surname,
+        email: jsonLogin[i].email
+      };
+      console.log(loginObject);
+      loggedIn = true;
+      console.log("Zalogowany: " + loggedIn);
+      document.getElementById("login-window-id").style.display = "none";
+      document.getElementById("logout-button-id").style.display = "block";
+      openSeatMap();//uruchamia funkcję wyboru mapy siedzeń w zależności od rodzaju samolotu
+      setupTimers(); //uruchamia timer        
     } else {
       window.alert("Proszę wprowadzić prawidłowe dane logowania");
     }
@@ -574,10 +576,12 @@ function logoutTimer() {
   var minutes = Math.floor((timeout % (1000 * 60 * 60)) / (1000 * 60));
   var seconds = Math.floor((timeout % (1000 * 60)) / 1000);
   //metoda Math.floor zaokrągla wartość do najniższej wartości całkowitej
+  //Sposób liczenia zmiennych w przypadku zmiany wartości timeout jest automatycznie przeliczany na minuty i sekundy
   minutes = checkTime(minutes);
   seconds = checkTime(seconds);
   document.getElementById("timer").innerHTML = minutes + ":" + seconds;
   (timeout < 0) ? logOut(true) : timeout -= 1000;
+  //w sytuacji kiedy timeout dojdzie do zera uruchamia funkcję wylogowania w przeciwnym wypadku pomniejsza wartośći co sekundę.
 }
 
 //timer reset
@@ -668,7 +672,6 @@ var seatsDisplay = [];
 //tworzymy zmienną dla tablicy, która będzie zawierała nr siedzeń do wyświetlenia
 var seatsSorted = [];
 //tworzymy zmienną - tablicę, która bedzie wypełniana posortowanymi numerami siedzeń do wyświetlenia*/
-
 
 function chooseSeat() {
   if (seats.length < document.getElementById("number-passengers-id").value) {
@@ -765,6 +768,24 @@ document.getElementById("return-to-start-3-id").onclick = returnToSearch;
 
 /*
 ===============================================================================
+Funkja sprawdza czy wybrano siedzenia i jeżeli tak to uruchamia funckję
+createPassengersDisplay która generuje tyle okien formularza dla opcji pasażerów
+ilu jest pasażerów
+===============================================================================
+*/
+
+function openOptions() {
+  if (seats.length == searchResult.passengers) {
+    document.getElementById("seat-map-ATR-id").style.display = "none";
+    document.getElementById("seat-map-airbus-id").style.display = "none";
+    document.getElementById("options-id").style.display = "block";
+    createPassengersDisplay(seats.length);
+  }
+  else (window.alert("Proszę wybrać komplet miejsc"));
+}
+
+/*
+===============================================================================
 Funkcja tworzącą odpowiednią ilośc okien wyboru opcji w zależności od 
 liczby pasażerów - patrz też funckja openOptions()
 ===============================================================================
@@ -834,6 +855,7 @@ function createPassengersDisplay(passNum) {
     container.appendChild(label3);
     container.appendChild(input3);
     input3.onclick = (event) => cabinbagChange(event.target);
+    //function (event){return cabinbagChange(event.target);}
     container.appendChild(document.createElement("br"));
     container.appendChild(label4);
     container.appendChild(input4);
@@ -841,7 +863,6 @@ function createPassengersDisplay(passNum) {
     container.appendChild(document.createElement("hr"));
     fragment.appendChild(container);
   }
-
   passOptionsId.appendChild(fragment);
 }
 
@@ -868,6 +889,7 @@ Funkcja wyboru i zliczania ilości wykupionych dodatkowych toreb kabinowych
 function cabinbagChange(checkbox) {
   var cabinbagNumSpan = document.getElementById('sum16').innerHTML;
   var cabinbagNum = isNaN(parseInt(cabinbagNumSpan)) ? 0 : parseInt(cabinbagNumSpan);
+  //jeżeli wartość w sum16 nie jest liczbą konieczne jest przypisanie wartości 0 jeśli jest liczna to parsuje do części całkowite; eliminuje błąd w przypadku pustego stringa
 
   checkbox.checked ? cabinbagNum++ : cabinbagNum--;
 
@@ -952,23 +974,6 @@ function createPassengersArray(passNum) {
   console.log("Tablica pasażerów optionArray: " + optionArray);
 }
 
-/*
-===============================================================================
-Funkja sprawdza czy wybrano siedzenia i jeżeli tak to uruchamia funckję
-createPassengersDisplay która generuje tyle okien formularza dla opcji pasażerów
-ilu jest pasażerów
-===============================================================================
-*/
-
-function openOptions() {
-  if (seats.length == searchResult.passengers) {
-    document.getElementById("seat-map-ATR-id").style.display = "none";
-    document.getElementById("seat-map-airbus-id").style.display = "none";
-    document.getElementById("options-id").style.display = "block";
-    createPassengersDisplay(seats.length);
-  }
-  else (window.alert("Proszę wybrać komplet miejsc"));
-}
 
 /*
 ===============================================================================
@@ -1055,17 +1060,14 @@ function finalSummaryDisplay() {
     container.appendChild(paraRegister);
     fragment.appendChild(container);
   }
-
   sumContainer.appendChild(fragment);
 }
-
 
 /*
 ===============================================================================
 Funkja powrotu z ekranu opcji do okna wyboru miejsca w samolocie
 ===============================================================================
 */
-
 
 function returnToChooseSeat() {
   document.getElementById("options-id").style.display = "none";
@@ -1122,7 +1124,6 @@ Funkja powrotu z okna podsumowania do początku
 */
 
 document.getElementById("return-to-start-5-id").onclick = returnToSearch;
-
 
 /*
 ===============================================================================
