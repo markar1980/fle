@@ -1,0 +1,213 @@
+//Definicja zmiennych
+
+$background-dark: rgba(0,0,0,0.7);
+$background-medium: rgba(0,0,0,0.5);
+$background-light: rgba(255,255,255,0.7);
+$dark-text-color: black;
+$light-text-color: white;
+$alarm-text-color: red;
+
+
+//Definicja domieszek
+
+@mixin dark-grid {
+padding: 10px;
+background-color: $background-dark;
+border-radius: 7px;
+}
+
+@mixin medium-grid {
+    padding: 10px;
+    background-color: $background-medium;
+    border-radius: 7px;
+}
+
+@mixin light-grid {
+    padding: 10px;
+    background-color: $background-light;
+    color: $dark-text-color;
+    border-radius: 7px;
+}
+
+@mixin transparent-grid {
+    padding: 10px;
+    border-radius: 7px;
+}
+
+@mixin alarm-text {
+    color: $alarm-text-color;
+    font-weight: bolder;
+    font-size: 1.2em;
+}
+
+//Style podstawowe
+body {
+    width: 90%;
+    min-width: 900px;
+    margin: 1em auto;
+    background-image: url(../assets/background1.jpg);
+    background-repeat: no-repeat;
+    background-attachment: fixed;
+    font-family: Arial, Helvetica, sans-serif;
+    font-size: 1em;
+    color: $light-text-color;
+}
+
+footer {
+    text-align: center;
+}
+
+button {
+    @include medium-grid;
+    color: $light-text-color;
+    font-weight: bold;
+    letter-spacing: 0.1em;
+    &:hover {
+        @include dark-grid;
+        cursor: pointer;
+    }
+}
+
+//Stylowanie głównego układu grida
+.container {
+    @include medium-grid;
+    display: grid;
+    grid-template-columns: repeat(12, minmax(0,1fr));
+    grid-gap: 5px;
+}
+
+header {
+    @include dark-grid;
+    grid-column: 1 / 13;
+    grid-row: 1;
+    height: 120px;
+}
+  
+nav {
+    @include transparent-grid;
+    grid-column: 1 /13;
+    grid-row: 2;
+}
+
+article {
+    @include transparent-grid;
+    padding-top: 0;
+    grid-column: 1 / 9;
+    grid-row: 3;
+    min-height: 500px;
+}
+  
+aside {
+    @include dark-grid;
+    grid-column: 9 / 13;
+    grid-row: 3;
+}
+  
+footer {
+    @include dark-grid;
+    grid-column: 1 / 13;
+    grid-row: 4;
+}
+
+//Stylowanie modułów
+
+article {
+    .module{ 
+        margin-bottom: 5px;
+        @include light-grid;
+    } 
+    // stylowanie modułu - wyszukiwanie lotu
+    #flight-search-id {
+        display: grid;
+        grid-template-columns: repeat(12, minmax(0,1fr));
+        grid-gap: 20px;
+        min-width: 600x;
+        #flight-type-id {
+            grid-column: 1/7;
+            grid-row: 1;
+        }
+        #flight-destination-id {
+            grid-column: 1/13;
+            grid-row: 2;
+        }
+        #flight-leaving-date-id {
+            grid-column: 1/13;
+            grid-row: 3;
+        }
+        #flight-return-date-id {
+            grid-column: 1/13;
+            grid-row: 4;
+        }
+        #passenger-number-id {
+            grid-column: 1/13;
+            grid-row: 5;
+        }
+    }
+}
+
+//Stylowanie kafelków w wynikach wyszukiwania
+.tiles {
+    @include dark-grid;
+    color: $light-text-color;
+    display: inline-block;
+    margin: 5px;
+    min-width: 100px;
+    max-width: 110x;
+}
+
+//Stylowanie układu siedzeń
+.plane-side {
+    fill: $background-dark;
+    font-size: 14px;
+}
+
+.exit {
+    fill: green;
+    font-size: 12px;
+}
+
+.seat-letter {
+    font-size: 13px;
+    font-weight: bold;
+}
+
+.row-number {
+    font-size: 13px;
+    font-weight: bold;
+}
+
+.seat {
+    stroke: black;
+    fill: $background-medium;
+    border-radius: 3px;
+    &:hover {
+        cursor: pointer;
+    }
+}
+
+.plane-type {
+    font-size: 15px;
+    font-weight: bold;
+}
+
+//Stylowanie elementów wyróżnionych
+
+span {
+    @include alarm-text();
+}
+
+//Stylowanie paragrafów podsumowania
+
+.narrow {
+    margin: 3px;
+}
+
+// Stylowanie klawisza wylogowania
+#logout-button-id {
+    display: none;
+    float: right;
+    margin: 0;
+    padding: 5px;
+    font-size: 0.8em;
+    font-weight: lighter;
+}
