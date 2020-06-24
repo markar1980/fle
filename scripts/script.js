@@ -21,6 +21,21 @@ function allowReturn(radio) {
     document.getElementById("return-date").disabled = false;
   }
 }
+/* Kod uniemożliwiający wybór miejsca tożsamego*/
+function blockFligthSelect(removeWhat, removeFrom) {
+  let len = removeFrom.options.length;
+  for (let i = 0; i < len; i++) {
+    if (removeWhat.value != "" && removeFrom.options[i].value == removeWhat.value) {
+      removeFrom.options[i].disabled = true;
+      if (removeFrom.options[i].selected) {
+        removeFrom.selectedIndex = "0";
+      }
+    } else {
+      removeFrom.options[i].disabled = false;
+    }
+  }
+  document.getElementById("flight-to").disabled = false;
+}
 
 /*
 ===============================================================================
@@ -283,7 +298,7 @@ document.getElementById("return-to-search-id").addEventListener("click", returnT
 function returnToSearch() {
   searchResult = {};
   returnResult = {};
-  optionArray = [];
+  optionArray = [];//Uwaga 8
   document.getElementById("search-window-id").style.display = "block";
   document.getElementById("search-result-wrapper-id").style.display = "none";
   document.getElementById("login-window-id").style.display = "none";
@@ -292,7 +307,7 @@ function returnToSearch() {
   document.getElementById("options-id").style.display = "none";
   document.getElementById("final-summary-id").style.display = "none";
   document.getElementById("finish-id").style.display = "none";
-  resetSeats();
+  resetSeats(); //Uwaga 8
   document.getElementById("sum1").innerHTML = "";
   document.getElementById("sum2").innerHTML = "";
   document.getElementById("sum3").innerHTML = "";
@@ -326,10 +341,10 @@ document.getElementById("go-to-login-id").addEventListener("click", goToLogin);
 function goToLogin() {
   if (loggedIn == false) {
     document.getElementById("login-window-id").style.display = "block";
-    document.getElementById("search-result-wrapper-id").style.display = "none";
+    document.getElementById("search-result-wrapper-id").style.display = "none"; //uwaga 9
   }
   else {
-    document.getElementById("search-result-wrapper-id").style.display = "none";
+    document.getElementById("search-result-wrapper-id").style.display = "none"; //uwaga 9
     openSeatMap();
   }
 };
@@ -350,7 +365,7 @@ function loadUsersData() {
     .catch(err => console.error(err));
 }
 
-var timeout = 3 * 60000; //3 minuty => 3 * 60000
+var timeout = 3 * 60000; //3 minuty => 3 * 60000 - uwaga 10
 var intervalLog;
 
 function logIn(jsonLogin) {
@@ -379,7 +394,7 @@ function logIn(jsonLogin) {
 
 function logOut(isIdle) {
   clearInterval(intervalLog);
-  timeout = 3 * 60000;
+  timeout = 3 * 60000; //uwaga 10
   document.getElementById("timer").innerHTML = "nie jesteś zalogowany";
   returnToSearch();
   loggedIn = false;
@@ -392,7 +407,7 @@ function logOut(isIdle) {
 }
 
 function startTimer() {
-  timeout = 3 * 60000;
+  timeout = 3 * 60000; //uwaga 10
   intervalLog = setInterval(logoutTimer, 1000);
 }
 

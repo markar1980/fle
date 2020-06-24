@@ -42,15 +42,18 @@
 
                     <div id="flight-destination-id">
                         <lebel for="flight-from">Z</lebel>
-                        <select id="flight-from" name="flightfrom">
-                            <option value="Katowice" selected>Katowice</option>
+                        <select id="flight-from" name="flightfrom"
+                            onchange="blockFligthSelect(this, this.form.flightto)">
+                            <option value="">--Proszę wybrać miejsce wylotu--</option>
+                            <option value="Katowice">Katowice</option>
                             <option value="Dubaj">Dubaj</option>
                             <option value="Lwów">Lwów</option>
                         </select>
                         <lebel for="flight-to">Do</lebel>
-                        <select id="flight-to" name="flightto">
+                        <select id="flight-to" name="flightto" disabled>
+                            <option value="">--Proszę wybrać miejsce docelowe--</option>
                             <option value="Katowice">Katowice</option>
-                            <option value="Dubaj" selected>Dubaj</option>
+                            <option value="Dubaj">Dubaj</option>
                             <option value="Lwów">Lwów</option>
                         </select>
                     </div>
@@ -690,9 +693,9 @@
             <hr>
             <p class="sum" id="sump20">Cena łącznie: <span id="sum20"></span></p>
         </aside>
-        
+
         <footer>Copyright&copy; by Marcin Karolewicz</footer>
-    
+
     </div>
 
     <script src="scripts/script.js"></script>
