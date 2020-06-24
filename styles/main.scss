@@ -43,7 +43,7 @@ border-radius: 7px;
 //Style podstawowe
 body {
     width: 90%;
-    min-width: 900px;
+    min-width: 500px;
     margin: 1em auto;
     background-image: url(../assets/background1.jpg);
     background-color: $background-dark;
@@ -110,6 +110,59 @@ footer {
     grid-row: 4;
 }
 
+//Alternatywne ostylowanie grida na mniejsze ektany i urządzenia mobilne
+
+@media only screen and (max-width: 1050px) {
+    body {
+        width: 100%;
+    }    
+    
+    .container {
+            @include medium-grid;
+            display: grid;
+            grid-template-columns: repeat(12, minmax(0,1fr));
+            grid-gap: 5px;
+        }
+        
+    header {
+            @include dark-grid;
+            grid-column: 1 / 13;
+            grid-row: 1;
+            height: 120px;
+        }
+          
+    nav {
+            @include transparent-grid;
+            grid-column: 1 /13;
+            grid-row: 2;
+        }
+        
+    article {
+            @include transparent-grid;
+            min-width: 610px;
+            margin-left: -10px;
+            margin-right: -10px;
+            padding-top: 0;
+            grid-column: 1 / 13;
+            grid-row: 3;
+            min-height: 0;
+        }
+          
+    aside {
+            @include dark-grid;
+            margin-top: 0;
+            grid-column: 1 / 13;
+            grid-row: 4;
+        }
+          
+    footer {
+            @include dark-grid;
+            grid-column: 1 / 13;
+            grid-row: 5;
+        }
+    }
+
+
 //Stylowanie modułów
 
 article {
@@ -145,6 +198,7 @@ article {
         }
     }
 }
+
 
 //Stylowanie kafelków w wynikach wyszukiwania
 .tiles {
