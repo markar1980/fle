@@ -69,6 +69,36 @@ button {
     }
 }
 
+ul {
+    list-style: none;
+}
+
+li {
+display: inline-block;
+margin-bottom: 10px;
+}
+
+li .radio {
+    /* display: block; */
+    margin-left: 10px;
+    margin-top: 10px;
+    float: left;
+}
+
+.clearfix::after {
+    content: "";
+    display: block;
+    clear: both;
+}
+
+ul {
+    list-style: none;;
+}
+
+li {
+    display: inline-block;
+}
+
 //Stylowanie głównego układu grida
 .container {
     @include medium-grid;
@@ -161,7 +191,6 @@ footer {
         }
     }
 
-
 //Stylowanie modułów
 
 article {
@@ -169,35 +198,7 @@ article {
         margin-bottom: 5px;
         @include light-grid;
     } 
-    // stylowanie modułu - wyszukiwanie lotu
-    #flight-search-id {
-        display: grid;
-        grid-template-columns: repeat(12, minmax(0,1fr));
-        grid-gap: 20px;
-        min-width: 600x;
-        #flight-type-id {
-            grid-column: 1/7;
-            grid-row: 1;
-        }
-        #flight-destination-id {
-            grid-column: 1/13;
-            grid-row: 2;
-        }
-        #flight-leaving-date-id {
-            grid-column: 1/13;
-            grid-row: 3;
-        }
-        #flight-return-date-id {
-            grid-column: 1/13;
-            grid-row: 4;
-        }
-        #passenger-number-id {
-            grid-column: 1/13;
-            grid-row: 5;
-        }
-    }
 }
-
 
 //Stylowanie kafelków w wynikach wyszukiwania
 .tiles {
