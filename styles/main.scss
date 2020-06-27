@@ -44,9 +44,9 @@ border-radius: 7px;
 body {
     width: 90%;
     min-width: 500px;
+    max-width: 1200px;
     margin: 1em auto;
     background-image: url(../assets/background1.jpg);
-    background-color: $background-dark;
     background-repeat: no-repeat;
     background-attachment: fixed;
     font-family: Arial, Helvetica, sans-serif;
@@ -79,10 +79,14 @@ margin-bottom: 10px;
 }
 
 li .radio {
-    /* display: block; */
-    margin-left: 10px;
-    margin-top: 10px;
-    float: left;
+/* display: block; */
+margin-left: 10px;
+margin-top: 10px;
+float: left;
+}
+
+li select {
+min-height: 30px;
 }
 
 .clearfix::after {
