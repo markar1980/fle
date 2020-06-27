@@ -339,12 +339,11 @@ Skrypt powodujący przejście do okna logowania
 document.getElementById("go-to-login-id").addEventListener("click", goToLogin);
 
 function goToLogin() {
+  document.getElementById("search-result-wrapper-id").style.display = "none";
   if (loggedIn == false) {
     document.getElementById("login-window-id").style.display = "block";
-    document.getElementById("search-result-wrapper-id").style.display = "none"; //uwaga 9
   }
   else {
-    document.getElementById("search-result-wrapper-id").style.display = "none"; //uwaga 9
     openSeatMap();
   }
 };
