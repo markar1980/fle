@@ -31,12 +31,13 @@
             <div class="module" id="search-window-id">
                 <h2>Szukaj lotu</h2>
                 <hr>
-                <form id="flight-search-id" >
-            
+                <form id="flight-search-id">
+
                     <ul id="flight-search-id" class="radio clearfix">
                         <li>
                             <p>Wybierz rodzaj lotu:</p>
-                            <input type="radio" name="flighttype" id="return" value="1" checked onclick="allowReturn(this)">
+                            <input type="radio" name="flighttype" id="return" value="1" checked
+                                onclick="allowReturn(this)">
                             <lebel for="return">Powrotny</lebel>
                             <input type="radio" name="flighttype" id="one-way" value="2" onclick="allowReturn(this)">
                             <lebel for="one-way">W jedną stronę</lebel>
@@ -45,7 +46,8 @@
                     <ul id="flight-destination-id">
                         <li>
                             <lebel for="flight-from">Z</lebel>
-                            <select id="flight-from" name="flightfrom" onchange="blockFligthSelect(this, this.form.flightto)">
+                            <select id="flight-from" name="flightfrom"
+                                onchange="blockFligthSelect(this, this.form.flightto)">
                                 <option value="">-Proszę wybrać miejsce wylotu-</option>
                                 <option value="Katowice">Katowice</option>
                                 <option value="Dubaj">Dubaj</option>
@@ -62,7 +64,7 @@
                             </select>
                         </li>
                     </ul>
-            
+
                     <ul id="flight-leaving-date-id">
                         <li>
                             <lebel for="leaving-date">Data wylotu: </lebel>
@@ -91,12 +93,12 @@
                             </select>
                         </li>
                     </ul>
-            
+
                 </form>
                 <hr>
                 <button type="button" id="search-button">Szukaj</button>
             </div>
-            
+
             <!-- Okno wyników wyszukiwania -->
 
             <div class="module" id="search-result-wrapper-id" style="display: none;">

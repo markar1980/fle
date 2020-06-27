@@ -45,18 +45,18 @@ dnia lotu niż dzień dzisiejszy i późniejszego niż za rok od dzisiaj
 (zgodnie z wytycznymi projektu).
 ===============================================================================
 */
-var todayISO = new Date(Date.now() - (new Date()).getTimezoneOffset() * 60000).toISOString().split("T")[0];
-var tomorrow = new Date(Date.now() - (new Date()).getTimezoneOffset() * 60000);
+const todayISO = new Date(Date.now() - (new Date()).getTimezoneOffset() * 60000).toISOString().split("T")[0];
+const tomorrow = new Date(Date.now() - (new Date()).getTimezoneOffset() * 60000);
 //powyżej uwzględniono czas lokalny; można uwzględnić UTC co skróci kod do: „var todayISO = new Date().toISOString().split("T")[0];” i „var tomorrow = new Date();”
 //getTimezoneOffset() zwraca różnicę stref czasowych w minutach - mnożenie przez 60000 w celu wyrażenia w milisekundach
 //toISOString zwraca datę jako string w standardzie ISO-8601: YYYY-MM-DDTHH:mm:ss.sssZ a następie spli("T")[0] wyciąga samą datę dzienną bez godziny
-var year = new Date(Date.now() - (new Date()).getTimezoneOffset() * 60000);
+const year = new Date(Date.now() - (new Date()).getTimezoneOffset() * 60000);
 tomorrow.setDate(tomorrow.getDate() + 1);
 //wyciągamy dzień miesiąca z początkowej wartości tommorow i dodajemy jeden dzień
 year.setDate(year.getDate() + 365);
 //wyciągamy dzień miesiąca z początkowej wartości year i dodajemy 365 dni
-var tomorrowISO = tomorrow.toISOString().split("T")[0];
-var yearISO = year.toISOString().split("T")[0];
+const tomorrowISO = tomorrow.toISOString().split("T")[0];
+const yearISO = year.toISOString().split("T")[0];
 document.getElementById("leaving-date").min = todayISO;
 document.getElementById("leaving-date").max = yearISO;
 document.getElementById("return-date").min = tomorrowISO;
@@ -165,7 +165,7 @@ Część danych zwracana jest następnie na stronie wyników wyszukiwania
 ===============================================================================
 */
 function searchFlight(jsonFlights) {
-  var returnFlight = document.getElementById("return").checked;
+  const returnFlight = document.getElementById("return").checked;
   /*zmienna sprawdzająca czy lot jest powrotny - jeśli tak będzie true, w przeciwnym wypadku false*/
   if (returnFlight == true) {
     document.getElementById("search-window-id").style.display = "none";
@@ -178,11 +178,11 @@ function searchFlight(jsonFlights) {
     document.getElementById("return-flight-result-wrapper-id").style.display = "none";
   }
   /*Poniższy fragment kodu tworzy zmienne na podstawie informacji podanych w formularzu wyszukiwania */
-  var flightFrom = document.getElementById("flight-from").value;
-  var flightTo = document.getElementById("flight-to").value;
+  const flightFrom = document.getElementById("flight-from").value;
+  const flightTo = document.getElementById("flight-to").value;
   var leavingDate = document.getElementById("leaving-date").value;
   var returnDate = document.getElementById("return-date").value;
-  var numberPassengers = document.getElementById("number-passengers-id").value;
+  const numberPassengers = document.getElementById("number-passengers-id").value;
   /*W pliku JSON zawierającym obiekty określające warianty lotów zostaje wyszukany 
   lot który spełnia zarówno warunek miejsca startowego i miejsca docelotwego dla lotu w jedną stronę, 
   a następnie obiekt searchResult{} zostaje wypełniony elementami*/
@@ -238,7 +238,7 @@ function searchFlight(jsonFlights) {
   document.getElementById("flight-to-bag2-id").innerText = searchResult.bag2;
 
   /*zmienna teczhniczna - utworzona na potrzeby debugowania*/
-  var planeType = searchResult.plane;
+  const planeType = searchResult.plane;
   console.log("Rodzaj samolotu to: " + planeType);
 
   if (returnFlight == true) {
@@ -452,7 +452,7 @@ Skrypt wylogowania z przycisku
 ===============================================================================
 */
 function logOutButton() {
-  var acpt = confirm("Czy na pewno chcesz się wylogować?");
+  const acpt = confirm("Czy na pewno chcesz się wylogować?");
   if (acpt == true) {
     logOut(false);
   }
@@ -497,7 +497,7 @@ function openSeatMap() {
 Skrypt wyboru miejsca do siedzenia z mapy siedzeń
 ===============================================================================
 */
-var seatArray = document.getElementsByClassName("seat");
+const seatArray = document.getElementsByClassName("seat");
 
 for (let i = 0; i < seatArray.length; i++) {
   seatArray[i].addEventListener("click", chooseSeat);
@@ -532,7 +532,7 @@ Funkcja zmieniająca kolor siedzenia po jego wyborze
 */
 function changeColor() {
   for (let i = 0; i < seats.length; i++) {
-    var changeColorId = document.getElementById(seats[i]);
+    let changeColorId = document.getElementById(seats[i]);
     changeColorId.style.fill = "green";
   }
 }
@@ -544,7 +544,7 @@ Funkcja restartująca wybór siedzeń
 */
 function resetSeats() {
   for (let i = 0; i < seats.length; i++) {
-    var changeColorId = document.getElementById(seats[i]);
+    let changeColorId = document.getElementById(seats[i]);
     changeColorId.style.fill = "rgba(0,0,0,0.5)";
   }
   seats = [];
