@@ -364,7 +364,7 @@ function loadUsersData() {
     .catch(err => console.error(err));
 }
 
-var timeout = 3 * 60000; //3 minuty => 3 * 60000 - uwaga 10
+var timeout;
 var intervalLog;
 
 function logIn(jsonLogin) {
@@ -393,7 +393,6 @@ function logIn(jsonLogin) {
 
 function logOut(isIdle) {
   clearInterval(intervalLog);
-  timeout = 3 * 60000; //uwaga 10
   document.getElementById("timer").innerHTML = "nie jesteś zalogowany";
   returnToSearch();
   loggedIn = false;
@@ -406,7 +405,7 @@ function logOut(isIdle) {
 }
 
 function startTimer() {
-  timeout = 3 * 60000; //uwaga 10
+  timeout = 3 * 60000;
   intervalLog = setInterval(logoutTimer, 1000);
 }
 
