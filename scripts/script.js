@@ -1,12 +1,3 @@
-/*
-===============================================================================
-Tworzenie zmiennych globalnych
-===============================================================================
-*/
-var searchResult = {}; //zmienna na wyniki wyszukiwania
-var returnResult = {}; //zmienna na wyniki wyszukiwania lotu powrotnego
-var loginObject = {} //zmienna na dane logowania
-var loggedIn = false; //zmienna wskazująca czy jesteśmy zalogowani - domyślnie nie
 
 /*
 ===============================================================================
@@ -16,9 +7,9 @@ przez wybór rodzaju lotu w oknie wyszukiwania
 */
 function allowReturn(radio) {
   if (radio.value == "2") {
-    document.getElementById("return-date").disabled = true;
+    returnDateVariable.disabled = true;
   } else {
-    document.getElementById("return-date").disabled = false;
+    returnDateVariable.disabled = false;
   }
 }
 /* Kod uniemożliwiający wybór miejsca tożsamego*/
@@ -34,7 +25,7 @@ function blockFligthSelect(removeWhat, removeFrom) {
       removeFrom.options[i].disabled = false;
     }
   }
-  document.getElementById("flight-to").disabled = false;
+  flightToVariable.disabled = false;
 }
 
 /*
@@ -57,11 +48,11 @@ year.setDate(year.getDate() + 365);
 //wyciągamy dzień miesiąca z początkowej wartości year i dodajemy 365 dni
 const tomorrowISO = tomorrow.toISOString().split("T")[0];
 const yearISO = year.toISOString().split("T")[0];
-document.getElementById("leaving-date").min = todayISO;
-document.getElementById("leaving-date").max = yearISO;
-document.getElementById("return-date").min = tomorrowISO;
-document.getElementById("return-date").max = yearISO;
-document.getElementById("leaving-date").addEventListener('change', setMinReturn);
+leavingDateVariable.min = todayISO;
+leavingDateVariable.max = yearISO;
+returnDateVariable.min = tomorrowISO;
+returnDateVariable.max = yearISO;
+leavingDateVariable.addEventListener('change', setMinReturn);
 
 /*
 ===============================================================================
@@ -72,16 +63,16 @@ Funckja jest wywoływana zmianą pola leaving-date w oknie wyszukiwania
 ===============================================================================
 */
 function setMinReturn() {
-  var leavingDate = document.getElementById("leaving-date").valueAsDate;
+  var leavingDate = leavingDateVariable.valueAsDate;
   if (leavingDate != null) {
     var returnDate = new Date(leavingDate);
     returnDate.setDate(leavingDate.getDate() + 1);
-    document.getElementById("return-date").min = returnDate.toISOString().split("T")[0];
-    if (document.getElementById("leaving-date").valueAsDate != null && document.getElementById("return-date").valueAsDate != null) {
+    returnDateVariable.min = returnDate.toISOString().split("T")[0];
+    if (leavingDateVariable.valueAsDate != null && returnDateVariable.valueAsDate != null) {
       checkFlightDate() ? true /*alert('ok')*/ : alert('Data powrotu nie może być wcześniejasz lub równa dacie lotu docelowego');
     }
   } else {
-    document.getElementById("return-date").min = tomorrowISO;
+    returnDateVariable.min = tomorrowISO;
   }
 }
 
@@ -92,7 +83,7 @@ stronę i przypisuje wartość zmiennej tak/nie
 ===============================================================================
 */
 function checkFlightDate() {
-  var returnDate = document.getElementById("return-date");
+  var returnDate = returnDateVariable;
   return ((returnDate.valueAsDate.toISOString().split("T")[0] < returnDate.min) ? false : true);
 }
 
@@ -102,23 +93,23 @@ Funkcje uniemożliwiające ręczne wpisanie dat przeszłych
 ===============================================================================
 */
 
-document.getElementById("leaving-date").addEventListener('blur', changeDateOne);
+leavingDateVariable.addEventListener('blur', changeDateOne);
 
 function changeDateOne() {
-  var leavingDatePrime = document.getElementById("leaving-date").value;
+  let leavingDatePrime = leavingDateVariable.value;
   if (leavingDatePrime < todayISO) {
     window.alert("Najwcześniejsza możliwa data wylotu to: " + todayISO);
-    document.getElementById("leaving-date").value = todayISO;
+    leavingDateVariable.value = todayISO;
   }
 }
 
-document.getElementById("return-date").addEventListener('blur', changeDateTwo);
+returnDateVariable.addEventListener('blur', changeDateTwo);
 
 function changeDateTwo() {
-  var returnDatePrime = document.getElementById("return-date").value;
+  let returnDatePrime = returnDateVariable.value;
   if (returnDatePrime < tomorrowISO) {
     window.alert("Najwcześniejsza możliwa data powrotu to: " + tomorrowISO);
-    document.getElementById("return-date").value = tomorrowISO;
+    returnDateVariable.value = tomorrowISO;
   }
 }
 
@@ -134,26 +125,26 @@ document.getElementById("search-button").onclick = allowSearch;
 
 function allowSearch() {
   if (
-    (document.getElementById("return-date").disabled == true) &&
-    (document.getElementById("flight-from").value != "") &&
-    (document.getElementById("flight-to").value != "") &&
-    (document.getElementById("leaving-date").value != "")
+    (returnDateVariable.disabled == true) &&
+    (flightFromVariable.value != "") &&
+    (flightToVariable.value != "") &&
+    (leavingDateVariable.value != "")
   ) {
-    if (document.getElementById("flight-from").value == document.getElementById("flight-to").value) {
+    if (flightFromVariable.value == flightToVariable.value) {
       window.alert("Miejsce wylotu i docelowe nie mogą być tożsame")
     }
     else
       loadFlightData();
   }
   else if (
-    (document.getElementById("return-date").disabled == false) &&
-    (document.getElementById("flight-from").value != "") &&
-    (document.getElementById("flight-to").value != "") &&
-    (document.getElementById("leaving-date").value != "") &&
-    (document.getElementById("return-date").value != "") &&
+    (returnDateVariable.disabled == false) &&
+    (flightFromVariable.value != "") &&
+    (flightToVariable.value != "") &&
+    (leavingDateVariable.value != "") &&
+    (returnDateVariable.value != "") &&
     checkFlightDate()
   ) {
-    if (document.getElementById("flight-from").value == document.getElementById("flight-to").value) {
+    if (flightFromVariable.value == flightToVariable.value) {
       window.alert("Miejsce wylotu i docelowe nie mogą być tożsame");
     }
     else
@@ -191,24 +182,24 @@ Część danych zwracana jest następnie na stronie wyników wyszukiwania
 ===============================================================================
 */
 function searchFlight(jsonFlights) {
-  const returnFlight = document.getElementById("return").checked;
+  const returnFlight = returnVariable.checked;
   /*zmienna sprawdzająca czy lot jest powrotny - jeśli tak będzie true, w przeciwnym wypadku false*/
   if (returnFlight == true) {
-    document.getElementById("search-window-id").style.display = "none";
-    document.getElementById("search-result-wrapper-id").style.display = "inline-block";
-    document.getElementById("return-flight-result-wrapper-id").style.display = "inline-block";
+    searchWinVar.style.display = "none";
+    searchRstWrapVar.style.display = "inline-block";
+    returnRstWrapVar.style.display = "inline-block";
   }
   else {
-    document.getElementById("search-window-id").style.display = "none";
-    document.getElementById("search-result-wrapper-id").style.display = "inline-block";
-    document.getElementById("return-flight-result-wrapper-id").style.display = "none";
+    searchWinVar.style.display = "none";
+    searchRstWrapVar.style.display = "inline-block";
+    returnRstWrapVar.style.display = "none";
   }
   /*Poniższy fragment kodu tworzy zmienne na podstawie informacji podanych w formularzu wyszukiwania */
-  const flightFrom = document.getElementById("flight-from").value;
-  const flightTo = document.getElementById("flight-to").value;
-  var leavingDate = document.getElementById("leaving-date").value;
-  var returnDate = document.getElementById("return-date").value;
-  const numberPassengers = document.getElementById("number-passengers-id").value;
+  const flightFrom = flightFromVariable.value;
+  const flightTo = flightToVariable.value;
+  var leavingDate = leavingDateVariable.value;
+  var returnDate = returnDateVariable.value;
+  const numberPassengers = numbPassVar.value;
   /*W pliku JSON zawierającym obiekty określające warianty lotów zostaje wyszukany 
   lot który spełnia zarówno warunek miejsca startowego i miejsca docelotwego dla lotu w jedną stronę, 
   a następnie obiekt searchResult{} zostaje wypełniony elementami*/
@@ -325,14 +316,14 @@ function returnToSearch() {
   searchResult = {};
   returnResult = {};
   optionArray = [];//Uwaga 8
-  document.getElementById("search-window-id").style.display = "block";
-  document.getElementById("search-result-wrapper-id").style.display = "none";
-  document.getElementById("login-window-id").style.display = "none";
-  document.getElementById("seat-map-airbus-id").style.display = "none";
-  document.getElementById("seat-map-ATR-id").style.display = "none";
-  document.getElementById("options-id").style.display = "none";
-  document.getElementById("final-summary-id").style.display = "none";
-  document.getElementById("finish-id").style.display = "none";
+  searchWinVar.style.display = "block";
+  searchRstWrapVar.style.display = "none";
+  logWinVar.style.display = "none";
+  smAirbusVar.style.display = "none";
+  smAtrVar.style.display = "none";
+  optionsVar.style.display = "none";
+  finalSumVar.style.display = "none";
+  finishVar.style.display = "none";
   resetSeats(); //Uwaga 8
   document.getElementById("sum1").innerHTML = "";
   document.getElementById("sum2").innerHTML = "";
@@ -353,8 +344,8 @@ function returnToSearch() {
   document.getElementById("sum18").innerHTML = "";
   document.getElementById("sum19").innerHTML = "";
   document.getElementById("sum20").innerHTML = "";
-  removeChildren(document.getElementById("pass-options-id"));
-  removeChildren(document.getElementById("final-summary-pass-output"));
+  removeChildren(passOptVar);
+  removeChildren(finalSumPassVar);
 }
 
 /*
@@ -365,9 +356,9 @@ Skrypt powodujący przejście do okna logowania
 document.getElementById("go-to-login-id").addEventListener("click", goToLogin);
 
 function goToLogin() {
-  document.getElementById("search-result-wrapper-id").style.display = "none";
+  searchRstWrapVar.style.display = "none";
   if (loggedIn == false) {
-    document.getElementById("login-window-id").style.display = "block";
+    logWinVar.style.display = "block";
   }
   else {
     openSeatMap();
@@ -390,15 +381,15 @@ function loadUsersData() {
     .catch(err => console.error(err));
 }
 
-var timeout;
-var intervalLog;
+// var timeout;
+// var intervalLog;
 
 function logIn(jsonLogin) {
   for (let i = 0; i < jsonLogin.length; i++) {
-    if ((jsonLogin[i].user == document.getElementById("username-id").value) &&
+    if ((jsonLogin[i].user == usernameVar.value) &&
       (jsonLogin[i].pass == document.getElementById("password-id").value)) {
       loginObject = {
-        user: document.getElementById("username-id").value,
+        user: usernameVar.value,
         password: "",
         name: jsonLogin[i].name,
         surname: jsonLogin[i].surname,
@@ -407,8 +398,8 @@ function logIn(jsonLogin) {
       console.log(loginObject);
       loggedIn = true;
       console.log("Zalogowany: " + loggedIn);
-      document.getElementById("login-window-id").style.display = "none";
-      document.getElementById("logout-button-id").style.display = "block";
+      logWinVar.style.display = "none";
+      logoutButtonVar.style.display = "block";
       openSeatMap();//uruchamia funkcję wyboru mapy siedzeń w zależności od rodzaju samolotu
       setupTimers(); //uruchamia timer        
     } else {
@@ -419,11 +410,11 @@ function logIn(jsonLogin) {
 
 function logOut(isIdle) {
   clearInterval(intervalLog);
-  document.getElementById("timer").innerHTML = "nie jesteś zalogowany";
+  timerVar.innerHTML = "nie jesteś zalogowany";
   returnToSearch();
   loggedIn = false;
   loginObject = {};
-  document.getElementById("logout-button-id").style.display = "none";
+  logoutButtonVar.style.display = "none";
   if (isIdle) {
     window.alert("Zostałeś wylogowany z powodu bezczynności");
   }
@@ -443,7 +434,7 @@ function logoutTimer() {
   //Sposób liczenia zmiennych w przypadku zmiany wartości timeout jest automatycznie przeliczany na minuty i sekundy
   minutes = checkTime(minutes);
   seconds = checkTime(seconds);
-  document.getElementById("timer").innerHTML = minutes + ":" + seconds;
+  timerVar.innerHTML = minutes + ":" + seconds;
   (timeout < 0) ? logOut(true) : timeout -= 1000;
   //w sytuacji kiedy timeout dojdzie do zera uruchamia funkcję wylogowania w przeciwnym wypadku pomniejsza wartośći co sekundę.
 }
@@ -491,8 +482,8 @@ Skrypt powodujący podwót do okna z wynikami wyszukiwania
 document.getElementById("returng-to-search-id-log").onclick = returnToResults;
 
 function returnToResults() {
-  document.getElementById("search-result-wrapper-id").style.display = "block";
-  document.getElementById("login-window-id").style.display = "none";
+  searchRstWrapVar.style.display = "block";
+  logWinVar.style.display = "none";
 }
 
 /*
@@ -510,10 +501,10 @@ od rodzaju samolotu na danej trasie
 */
 function openSeatMap() {
   if (searchResult.plane == "ATR 42-600") {
-    document.getElementById("seat-map-ATR-id").style.display = "block"
+    smAtrVar.style.display = "block"
   }
   else {
-    document.getElementById("seat-map-airbus-id").style.display = "block"
+    smAirbusVar.style.display = "block"
   }
 }
 
@@ -536,7 +527,7 @@ var seatsSorted = [];
 //tworzymy zmienną - tablicę, która bedzie wypełniana posortowanymi numerami siedzeń do wyświetlenia
 
 function chooseSeat() {
-  if (seats.length < document.getElementById("number-passengers-id").value) {
+  if (seats.length < numbPassVar.value) {
     var chooseSeatId = this.id;
     if (seats.indexOf(chooseSeatId) == -1) {
       var seatIdFragment = chooseSeatId.slice(2)//wycianmy tylko fragment ID, który checmy wyświetlić
@@ -587,8 +578,8 @@ Samolot mały
 document.getElementById("return-to-search-id-s").onclick = returnToResults2;
 
 function returnToResults2() {
-  document.getElementById("search-result-wrapper-id").style.display = "block";
-  document.getElementById("seat-map-ATR-id").style.display = "none";
+  searchRstWrapVar.style.display = "block";
+  smAtrVar.style.display = "none";
   resetSeats();
 }
 
@@ -601,9 +592,9 @@ Samolot duży
 document.getElementById("return-to-search-id-m").onclick = returnToResults3;
 
 function returnToResults3() {
-  document.getElementById("search-result-wrapper-id").style.display = "block";
-  document.getElementById("seat-map-airbus-id").style.display = "none";
-  document.getElementById("seat-map-ATR-id").style.display = "none";
+  searchRstWrapVar.style.display = "block";
+  smAirbusVar.style.display = "none";
+  smAtrVar.style.display = "none";
   resetSeats()
 }
 
@@ -632,9 +623,9 @@ ilu jest pasażerów
 */
 function openOptions() {
   if (seats.length == searchResult.passengers) {
-    document.getElementById("seat-map-ATR-id").style.display = "none";
-    document.getElementById("seat-map-airbus-id").style.display = "none";
-    document.getElementById("options-id").style.display = "block";
+    smAtrVar.style.display = "none";
+    smAirbusVar.style.display = "none";
+    optionsVar.style.display = "block";
     createPassengersDisplay(seats.length);
   }
   else (window.alert("Proszę wybrać komplet miejsc"));
@@ -648,7 +639,7 @@ liczby pasażerów - patrz też funckja openOptions()
 */
 function createPassengersDisplay(passNum) {
   let fragment = new DocumentFragment();
-  let passOptionsId = document.getElementById("pass-options-id"); //id generowanego formularza
+  let passOptionsId = passOptVar; //id generowanego formularza
 
   for (let i = 1; i <= seats.length; i++) {
     let container = document.createElement('div');
@@ -747,7 +738,7 @@ function cabinbagChange(checkbox) {
   checkbox.checked ? cabinbagNum++ : cabinbagNum--;
 
   // jeżeli lot powrotny to mnoży razy dwa dopłatę za dodatkowe torby
-  if (document.getElementById("return").checked) {
+  if (returnVariable.checked) {
     document.getElementById('sum16').innerHTML = cabinbagNum;
     document.getElementById('sum17').innerHTML = 2 * cabinbagNum * searchResult.bag1 + ",00 zł";
     document.getElementById("sum20").innerHTML = (searchResult.price * 2 * searchResult.passengers + 2 * cabinbagNum * searchResult.bag1 + 2 * parseInt(document.getElementById('sum19').innerHTML) + ",00 zł");
@@ -770,7 +761,7 @@ function registerChange(checkbox) {
   checkbox.checked ? registerNum++ : registerNum--;
 
   // jeżeli lot powrotny to mnoży razy dwa dopłatę za dodatkowe torby
-  if (document.getElementById("return").checked) {
+  if (returnVariable.checked) {
     document.getElementById('sum18').innerHTML = registerNum;
     document.getElementById('sum19').innerHTML = 2 * registerNum * searchResult.bag2 + ",00 zł";
     document.getElementById("sum20").innerHTML = (searchResult.price * 2 * searchResult.passengers + 2 * parseInt(document.getElementById('sum17').innerHTML) + 2 * registerNum * searchResult.bag2 + ",00 zł");
@@ -837,8 +828,8 @@ function goToSummary() {
   if (msg == "") {
     //uzupełniamy tablicę pasażerów danymi jeżeli validacja nie zwróciła informacji o błędach (msg jest puste)
     createPassengersArray(seats.length);
-    document.getElementById("options-id").style.display = "none";
-    document.getElementById("final-summary-id").style.display = "block";
+    optionsVar.style.display = "none";
+    finalSumVar.style.display = "block";
     finalSummaryDisplay();
   } else {
     window.alert(msg);
@@ -916,15 +907,15 @@ Funkja powrotu z ekranu opcji do okna wyboru miejsca w samolocie
 ===============================================================================
 */
 function returnToChooseSeat() {
-  document.getElementById("options-id").style.display = "none";
+  optionsVar.style.display = "none";
   if (searchResult.plane == "ATR 42-600") {
-    document.getElementById("seat-map-ATR-id").style.display = "block";
+    smAtrVar.style.display = "block";
   }
   else {
-    document.getElementById("seat-map-airbus-id").style.display = "block";
+    smAirbusVar.style.display = "block";
   }
   resetSeats();
-  removeChildren(document.getElementById("pass-options-id"));
+  removeChildren(passOptVar);
 }
 
 /*
@@ -942,8 +933,8 @@ Funkja przejścia z okna podstumowania końcowego do okna końcowego
 document.getElementById("finish-button-id").onclick = goToFinish;
 
 function goToFinish() {
-  document.getElementById("finish-id").style.display = "block";
-  document.getElementById("final-summary-id").style.display = "none";
+  finishVar.style.display = "block";
+  finalSumVar.style.display = "none";
 }
 
 /*
@@ -954,10 +945,10 @@ Funkja przejścia z okna podsumowania końcowego do okna opcji
 document.getElementById("return-to-options").onclick = returnToOptions;
 
 function returnToOptions() {
-  document.getElementById("options-id").style.display = "block";
-  document.getElementById("final-summary-id").style.display = "none";
+  optionsVar.style.display = "block";
+  finalSumVar.style.display = "none";
   optionArray = [];
-  removeChildren(document.getElementById("final-summary-pass-output"));
+  removeChildren(finalSumPassVar);
 }
 
 /*
