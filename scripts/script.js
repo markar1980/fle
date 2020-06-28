@@ -98,6 +98,32 @@ function checkFlightDate() {
 
 /*
 ===============================================================================
+Funkcje uniemożliwiające ręczne wpisanie dat przeszłych
+===============================================================================
+*/
+
+document.getElementById("leaving-date").addEventListener('blur', changeDateOne);
+
+function changeDateOne() {
+  var leavingDatePrime = document.getElementById("leaving-date").value;
+  if (leavingDatePrime < todayISO) {
+    window.alert("Najwcześniejsza możliwa data wylotu to: " + todayISO);
+    document.getElementById("leaving-date").value = todayISO;
+  }
+}
+
+document.getElementById("return-date").addEventListener('blur', changeDateTwo);
+
+function changeDateTwo() {
+  var returnDatePrime = document.getElementById("return-date").value;
+  if (returnDatePrime < tomorrowISO) {
+    window.alert("Najwcześniejsza możliwa data powrotu to: " + tomorrowISO);
+    document.getElementById("return-date").value = tomorrowISO;
+  }
+}
+
+/*
+===============================================================================
 Funckja która uruchamia skrypt wczytania JSON - loadFlightData(), w zależności od
 podania kompletu danych. Jeśli lot jest w jedną stronę trzy pola muszą być pełne,
 jeśli lot jest w dwie strony, cztery pola muszą być pełne.
