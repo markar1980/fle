@@ -10,6 +10,8 @@ var loginObject = {} //zmienna na dane logowania
 var loggedIn = false; //zmienna wskazująca czy jesteśmy zalogowani - domyślnie nie
 var timeout;
 var intervalLog;
+var sumElementArray = []
+var sumValueArray = [];
 
 const flightFromVariable = document.getElementById("flight-from");
 const flightToVariable = document.getElementById("flight-to");

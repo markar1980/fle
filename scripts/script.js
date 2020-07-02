@@ -1,4 +1,3 @@
-
 /*
 ===============================================================================
 Skrypt przełączający możliwość wyboru daty lotu powrotnego. Funkcja uruchamiana
@@ -222,22 +221,22 @@ function searchFlight(jsonFlights) {
         plane: jsonFlights[i].plane
       }
     }
-    document.getElementById("sum1").innerHTML = searchResult.from;
-    document.getElementById("sum2").innerHTML = searchResult.to;
-    document.getElementById("sum3").innerHTML = searchResult.passengers;
-    document.getElementById("sum4").innerHTML = returnFlight ? "tak" : "nie";
-    document.getElementById("sum5").innerHTML = searchResult.day;
-    document.getElementById("sum6").innerHTML = searchResult.start;
-    document.getElementById("sum7").innerHTML = searchResult.end;
-    document.getElementById("sum11").innerHTML = searchResult.time;
-    document.getElementById("sum12").innerHTML = searchResult.plane;
-    document.getElementById("sum13").innerHTML = searchResult.price + ",00 zł";
-    document.getElementById("sum14").innerHTML = (searchResult.price * searchResult.passengers + ",00 zł");
-    document.getElementById("sum16").innerHTML = 0;
-    document.getElementById("sum17").innerHTML = 0 + ",00 zł";
-    document.getElementById("sum18").innerHTML = 0;
-    document.getElementById("sum19").innerHTML = 0 + ",00 zł";
-    document.getElementById("sum20").innerHTML = (searchResult.price * searchResult.passengers + ",00 zł");
+    // document.getElementById("sum1").innerHTML = searchResult.from;
+    // document.getElementById("sum2").innerHTML = searchResult.to;
+    // document.getElementById("sum3").innerHTML = searchResult.passengers;
+    // document.getElementById("sum4").innerHTML = returnFlight ? "tak" : "nie";
+    // document.getElementById("sum5").innerHTML = searchResult.day;
+    // document.getElementById("sum6").innerHTML = searchResult.start;
+    // document.getElementById("sum7").innerHTML = searchResult.end;
+    // document.getElementById("sum11").innerHTML = searchResult.time;
+    // document.getElementById("sum12").innerHTML = searchResult.plane;
+    // document.getElementById("sum13").innerHTML = searchResult.price + ",00 zł";
+    // document.getElementById("sum14").innerHTML = (searchResult.price * searchResult.passengers + ",00 zł");
+    // document.getElementById("sum16").innerHTML = 0;
+    // document.getElementById("sum17").innerHTML = 0 + ",00 zł";
+    // document.getElementById("sum18").innerHTML = 0;
+    // document.getElementById("sum19").innerHTML = 0 + ",00 zł";
+    // document.getElementById("sum20").innerHTML = (searchResult.price * searchResult.passengers + ",00 zł");
   }
 
   console.log(searchResult);
@@ -297,12 +296,32 @@ a następnie obiekt returnResult{} zostaje wypełniony elementami*/
         document.getElementById("return-flight-bag2-id").innerText = returnResult.bag2;
       }
     }
-    document.getElementById("sum8").innerHTML = returnResult.day;
-    document.getElementById("sum9").innerHTML = returnResult.start;
-    document.getElementById("sum10").innerHTML = returnResult.end;
-    document.getElementById("sum14").innerHTML = (searchResult.price * 2 * searchResult.passengers + ",00 zł");
-    document.getElementById("sum20").innerHTML = (searchResult.price * 2 * searchResult.passengers + ",00 zł");
+    // document.getElementById("sum8").innerHTML = returnResult.day;
+    // document.getElementById("sum9").innerHTML = returnResult.start;
+    // document.getElementById("sum10").innerHTML = returnResult.end;
+    // document.getElementById("sum14").innerHTML = (searchResult.price * 2 * searchResult.passengers + ",00 zł");
+    // document.getElementById("sum20").innerHTML = (searchResult.price * 2 * searchResult.passengers + ",00 zł");
   }
+  sumValueArray.push(searchResult.from, searchResult.to, searchResult.passengers, returnFlight ? "tak" : "nie", searchResult.day, searchResult.start, searchResult.end,
+    returnFlight ? returnResult.day : "", returnFlight ? returnResult.start : "", returnFlight ? returnResult.end : "", searchResult.time, searchResult.plane, (searchResult.price + ",00 zł"), returnFlight ? (searchResult.price * 2 * searchResult.passengers + ",00 zł") : (searchResult.price * searchResult.passengers + ",00 zł"), "", 0, (0 + ",00 zł"), 0, (0 + ",00 zł"), returnFlight ? (searchResult.price * 2 * searchResult.passengers + ",00 zł") : (searchResult.price * searchResult.passengers + ",00 zł"))
+  displaySum();
+}
+//Funkcja wyświetlająca sumę
+function displaySum() {
+  console.log(sumValueArray);
+  for (let p = 0; p < sumValueArray.length; p++) {
+    document.getElementById("sum" + (p + 1)).innerHTML = sumValueArray[p];
+  }
+}
+
+//funkcja czyszcząca sumę
+function clearSum() {
+  sumValueArray = [];
+  console.log(sumValueArray);
+  for (let i = 1; i <= 20; i++) {
+    document.getElementById("sum" + i).innerHTML = "";
+  }
+
 }
 
 /*
@@ -324,26 +343,28 @@ function returnToSearch() {
   optionsVar.style.display = "none";
   finalSumVar.style.display = "none";
   finishVar.style.display = "none";
-  resetSeats(); //Uwaga 8
-  document.getElementById("sum1").innerHTML = "";
-  document.getElementById("sum2").innerHTML = "";
-  document.getElementById("sum3").innerHTML = "";
-  document.getElementById("sum4").innerHTML = "";
-  document.getElementById("sum5").innerHTML = "";
-  document.getElementById("sum6").innerHTML = "";
-  document.getElementById("sum7").innerHTML = "";
-  document.getElementById("sum8").innerHTML = "";
-  document.getElementById("sum9").innerHTML = "";
-  document.getElementById("sum10").innerHTML = "";
-  document.getElementById("sum11").innerHTML = "";
-  document.getElementById("sum12").innerHTML = "";
-  document.getElementById("sum13").innerHTML = "";
-  document.getElementById("sum14").innerHTML = "";
-  document.getElementById("sum16").innerHTML = "";
-  document.getElementById("sum17").innerHTML = "";
-  document.getElementById("sum18").innerHTML = "";
-  document.getElementById("sum19").innerHTML = "";
-  document.getElementById("sum20").innerHTML = "";
+  resetSeats(); //to zostawić
+  clearSum();
+  //Uwaga 8
+  // document.getElementById("sum1").innerHTML = "";
+  // document.getElementById("sum2").innerHTML = "";
+  // document.getElementById("sum3").innerHTML = "";
+  // document.getElementById("sum4").innerHTML = "";
+  // document.getElementById("sum5").innerHTML = "";
+  // document.getElementById("sum6").innerHTML = "";
+  // document.getElementById("sum7").innerHTML = "";
+  // document.getElementById("sum8").innerHTML = "";
+  // document.getElementById("sum9").innerHTML = "";
+  // document.getElementById("sum10").innerHTML = "";
+  // document.getElementById("sum11").innerHTML = "";
+  // document.getElementById("sum12").innerHTML = "";
+  // document.getElementById("sum13").innerHTML = "";
+  // document.getElementById("sum14").innerHTML = "";
+  // document.getElementById("sum16").innerHTML = "";
+  // document.getElementById("sum17").innerHTML = "";
+  // document.getElementById("sum18").innerHTML = "";
+  // document.getElementById("sum19").innerHTML = "";
+  // document.getElementById("sum20").innerHTML = "";
   removeChildren(passOptVar);
   removeChildren(finalSumPassVar);
 }
@@ -915,6 +936,11 @@ function returnToChooseSeat() {
     smAirbusVar.style.display = "block";
   }
   resetSeats();
+  document.getElementById('sum16').innerHTML = 0;
+  document.getElementById('sum17').innerHTML = sumValueArray[16];
+  document.getElementById('sum18').innerHTML = 0;
+  document.getElementById('sum19').innerHTML = sumValueArray[18];
+  document.getElementById('sum20').innerHTML = sumValueArray[19];
   removeChildren(passOptVar);
 }
 
