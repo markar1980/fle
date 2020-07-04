@@ -40,7 +40,7 @@ li {
   margin-bottom: 10px;
 }
 
-li .radio {
+li .module__radio {
   /* display: block; */
   margin-left: 10px;
   margin-top: 10px;
@@ -51,7 +51,7 @@ li select {
   min-height: 30px;
 }
 
-.clearfix::after {
+.module__clearfix::after {
   content: "";
   display: block;
   clear: both;
@@ -187,37 +187,37 @@ article .module {
   max-width: 110x;
 }
 
-.plane-side {
+.module__planeSide {
   fill: rgba(0, 0, 0, 0.7);
   font-size: 14px;
 }
 
-.exit {
+.module__exit {
   fill: green;
   font-size: 12px;
 }
 
-.seat-letter {
+.module__seatLetterRow {
   font-size: 13px;
   font-weight: bold;
 }
 
-.row-number {
+.module__rowNumber {
   font-size: 13px;
   font-weight: bold;
 }
 
-.seat {
+.module__seat {
   stroke: black;
   fill: rgba(0, 0, 0, 0.5);
   border-radius: 3px;
 }
 
-.seat:hover {
+.module__seat:hover {
   cursor: pointer;
 }
 
-.plane-type {
+.module__planeType {
   font-size: 15px;
   font-weight: bold;
 }
@@ -228,7 +228,7 @@ span {
   font-size: 1.2em;
 }
 
-.narrow {
+.__narrow {
   margin: 3px;
 }
 

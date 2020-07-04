@@ -534,7 +534,7 @@ function openSeatMap() {
 Skrypt wyboru miejsca do siedzenia z mapy siedzeń
 ===============================================================================
 */
-const seatArray = document.getElementsByClassName("seat");
+const seatArray = document.getElementsByClassName("module__seat");
 
 for (let i = 0; i < seatArray.length; i++) {
   seatArray[i].addEventListener("click", chooseSeat);

@@ -31,9 +31,9 @@
             <div class="module" id="search-window-id">
                 <h2>Szukaj lotu</h2>
                 <hr>
-                <form id="flight-search-id">
+                <form>
 
-                    <ul id="flight-search-id" class="radio clearfix">
+                    <ul class="module__radio module__clearfix">
                         <li>
                             <p>Wybierz rodzaj lotu:</p>
                             <input type="radio" name="flighttype" id="return" value="1" checked
@@ -43,7 +43,7 @@
                             <lebel for="one-way">W jedną stronę</lebel>
                         </li>
                     </ul>
-                    <ul id="flight-destination-id">
+                    <ul>
                         <li>
                             <lebel for="flight-from">Z</lebel>
                             <select id="flight-from" name="flightfrom"
@@ -65,19 +65,19 @@
                         </li>
                     </ul>
 
-                    <ul id="flight-leaving-date-id">
+                    <ul>
                         <li>
                             <lebel for="leaving-date">Data wylotu: </lebel>
                             <input type="date" id="leaving-date">
                         </li>
                     </ul>
-                    <ul id="flight-return-date-id">
+                    <ul>
                         <li>
                             <lebel for="return-date">Data lotu powrotnego: </lebel>
                             <input type="date" id="return-date">
                         </li>
                     </ul>
-                    <ul id="passenger-number-id">
+                    <ul>
                         <li>
                             <lebel for="number-passengers-id">Liczba pasażerów</lebel>
                             <select id="number-passengers-id" name="numberpassengers">
@@ -105,7 +105,7 @@
                 <h2>Wyniki wyszukiwania</h2>
                 <hr>
                 <!--Część zawierający wyniki lotu "tam"-->
-                <div id="flight-to-result-wrapper-id">
+                <div>
                     <h3>Lot do</h3>
                     <!--Div z kafelkami wyników - lot tam-->
                     <div class="tiles">
@@ -144,7 +144,7 @@
                 </div>
                 <hr>
                 <!--Część zawierający wyniki lotu powrotnego-->
-                <div class="return-flight-result-wrapper" id="return-flight-result-wrapper-id">
+                <div id="return-flight-result-wrapper-id">
                     <h4>Lot powrotny</h4>
                     <!--Div z kafelkami wyników - lot powrotny-->
                     <div class="tiles">
@@ -176,7 +176,7 @@
                         <p id="return-flight-pass-no-id"></p>
                     </div>
                     <h5>Cena podstawowa: <span id="return-flight-price-id"></span> PLN za osobę</h5>
-                    <p class="small-note">Cena podstawowa obejmuje bagaż podręczny, dodatkowe opcje będą widoczne na
+                    <p>Cena podstawowa obejmuje bagaż podręczny, dodatkowe opcje będą widoczne na
                         kolejnych
                         stronach rezerwacji.</p>
                     <h5>Cena dodatkowej torby kabinowej: <span id="return-flight-bag1-id"></span> PLN za pasażera.</h5>
@@ -209,120 +209,146 @@
                 <h2>Wybierz miejsca</h2>
                 <hr>
                 <!--Układ samolotu-->
-                <svg class="seat-SVG" id="seat-map-ATR-svg-id" width="300" height="515">
-                    <g class="plane-side">
+                <svg class="module__seatSVG" id="seat-map-ATR-svg-id" width="300" height="515">
+                    <g class="module__planeSide">
                         <polygon points="110,2 65,20 155,20"></polygon>
                         <text x="94" y="32">Front</text>
                     </g>
-                    <g class="exit">
+                    <g class="module__exit">
                         <polygon points="15,35 5,45 15,55"></polygon>
                         <text x="17" y="50">Exit</text>
                     </g>
-                    <g class="seat-letter-row">
-                        <text class="seat-letter" x="65" y="50">A</text>
-                        <text class="seat-letter" x="85" y="50">B</text>
-                        <text class="seat-letter" x="120" y="50">C</text>
-                        <text class="seat-letter" x="140" y="50">D</text>
+                    <g class="module__seatLetterRow">
+                        <text x="65" y="50">A</text>
+                        <text x="85" y="50">B</text>
+                        <text x="120" y="50">C</text>
+                        <text x="140" y="50">D</text>
                     </g>
-                    <g id="row1" class="row1">
-                        <text class="row-number" x="5" y="80">Row 1</text>
-                        <rect id="s-1a" class="seat" width="15" height="15" x="65" y="65" rx="3" ry="3"></rect>
-                        <rect id="s-1b" class="seat" width="15" height="15" x="85" y="65" rx="3" ry="3"></rect>
-                        <rect id="s-1c" class="seat" width="15" height="15" x="120" y="65" rx="3" ry="3"></rect>
-                        <rect id="s-1d" class="seat" width="15" height="15" x="140" y="65" rx="3" ry="3"></rect>
+                    <g>
+                        <text class="module__rowNumber" x="5" y="80">Row 1</text>
+                        <rect id="s-1a" class="module__seat" width="15" height="15" x="65" y="65" rx="3" ry="3"></rect>
+                        <rect id="s-1b" class="module__seat" width="15" height="15" x="85" y="65" rx="3" ry="3"></rect>
+                        <rect id="s-1c" class="module__seat" width="15" height="15" x="120" y="65" rx="3" ry="3"></rect>
+                        <rect id="s-1d" class="module__seat" width="15" height="15" x="140" y="65" rx="3" ry="3"></rect>
                     </g>
-                    <g id="row2" class="row2">
-                        <text class="row-number" x="5" y="110">Row 2</text>
-                        <rect id="s-2a" class="seat" width="15" height="15" x="65" y="95" rx="3" ry="3"></rect>
-                        <rect id="s-2b" class="seat" width="15" height="15" x="85" y="95" rx="3" ry="3"></rect>
-                        <rect id="s-2c" class="seat" width="15" height="15" x="120" y="95" rx="3" ry="3"></rect>
-                        <rect id="s-2d" class="seat" width="15" height="15" x="140" y="95" rx="3" ry="3"></rect>
+                    <g>
+                        <text class="module__rowNumber" x="5" y="110">Row 2</text>
+                        <rect id="s-2a" class="module__seat" width="15" height="15" x="65" y="95" rx="3" ry="3"></rect>
+                        <rect id="s-2b" class="module__seat" width="15" height="15" x="85" y="95" rx="3" ry="3"></rect>
+                        <rect id="s-2c" class="module__seat" width="15" height="15" x="120" y="95" rx="3" ry="3"></rect>
+                        <rect id="s-2d" class="module__seat" width="15" height="15" x="140" y="95" rx="3" ry="3"></rect>
                     </g>
-                    <g id="row3" class="row3">
-                        <text class="row-number" x="5" y="140">Row 3</text>
-                        <rect id="s-3a" class="seat" width="15" height="15" x="65" y="125" rx="3" ry="3"></rect>
-                        <rect id="s-3b" class="seat" width="15" height="15" x="85" y="125" rx="3" ry="3"></rect>
-                        <rect id="s-3c" class="seat" width="15" height="15" x="120" y="125" rx="3" ry="3"></rect>
-                        <rect id="s-3d" class="seat" width="15" height="15" x="140" y="125" rx="3" ry="3"></rect>
+                    <g>
+                        <text class="module__rowNumber" x="5" y="140">Row 3</text>
+                        <rect id="s-3a" class="module__seat" width="15" height="15" x="65" y="125" rx="3" ry="3"></rect>
+                        <rect id="s-3b" class="module__seat" width="15" height="15" x="85" y="125" rx="3" ry="3"></rect>
+                        <rect id="s-3c" class="module__seat" width="15" height="15" x="120" y="125" rx="3" ry="3">
+                        </rect>
+                        <rect id="s-3d" class="module__seat" width="15" height="15" x="140" y="125" rx="3" ry="3">
+                        </rect>
                     </g>
-                    <g id="row4" class="row4">
-                        <text class="row-number" x="5" y="170">Row 4</text>
-                        <rect id="s-4a" class="seat" width="15" height="15" x="65" y="155" rx="3" ry="3"></rect>
-                        <rect id="s-4b" class="seat" width="15" height="15" x="85" y="155" rx="3" ry="3"></rect>
-                        <rect id="s-4c" class="seat" width="15" height="15" x="120" y="155" rx="3" ry="3"></rect>
-                        <rect id="s-4d" class="seat" width="15" height="15" x="140" y="155" rx="3" ry="3"></rect>
+                    <g>
+                        <text class="module__rowNumber" x="5" y="170">Row 4</text>
+                        <rect id="s-4a" class="module__seat" width="15" height="15" x="65" y="155" rx="3" ry="3"></rect>
+                        <rect id="s-4b" class="module__seat" width="15" height="15" x="85" y="155" rx="3" ry="3"></rect>
+                        <rect id="s-4c" class="module__seat" width="15" height="15" x="120" y="155" rx="3" ry="3">
+                        </rect>
+                        <rect id="s-4d" class="module__seat" width="15" height="15" x="140" y="155" rx="3" ry="3">
+                        </rect>
                     </g>
-                    <g id="row5" class="row5">
-                        <text class="row-number" x="5" y="200">Row 5</text>
-                        <rect id="s-5a" class="seat" width="15" height="15" x="65" y="185" rx="3" ry="3"></rect>
-                        <rect id="s-5b" class="seat" width="15" height="15" x="85" y="185" rx="3" ry="3"></rect>
-                        <rect id="s-5c" class="seat" width="15" height="15" x="120" y="185" rx="3" ry="3"></rect>
-                        <rect id="s-5d" class="seat" width="15" height="15" x="140" y="185" rx="3" ry="3"></rect>
+                    <g id="row5">
+                        <text class="module__rowNumber" x="5" y="200">Row 5</text>
+                        <rect id="s-5a" class="module__seat" width="15" height="15" x="65" y="185" rx="3" ry="3"></rect>
+                        <rect id="s-5b" class="module__seat" width="15" height="15" x="85" y="185" rx="3" ry="3"></rect>
+                        <rect id="s-5c" class="module__seat" width="15" height="15" x="120" y="185" rx="3" ry="3">
+                        </rect>
+                        <rect id="s-5d" class="module__seat" width="15" height="15" x="140" y="185" rx="3" ry="3">
+                        </rect>
                     </g>
-                    <g id="row6" class="row6">
-                        <text class="row-number" x="5" y="230">Row 6</text>
-                        <rect id="s-6a" class="seat" width="15" height="15" x="65" y="215" rx="3" ry="3"></rect>
-                        <rect id="s-6b" class="seat" width="15" height="15" x="85" y="215" rx="3" ry="3"></rect>
-                        <rect id="s-6c" class="seat" width="15" height="15" x="120" y="215" rx="3" ry="3"></rect>
-                        <rect id="s-6d" class="seat" width="15" height="15" x="140" y="215" rx="3" ry="3"></rect>
+                    <g id="row6">
+                        <text class="module__rowNumber" x="5" y="230">Row 6</text>
+                        <rect id="s-6a" class="module__seat" width="15" height="15" x="65" y="215" rx="3" ry="3"></rect>
+                        <rect id="s-6b" class="module__seat" width="15" height="15" x="85" y="215" rx="3" ry="3"></rect>
+                        <rect id="s-6c" class="module__seat" width="15" height="15" x="120" y="215" rx="3" ry="3">
+                        </rect>
+                        <rect id="s-6d" class="module__seat" width="15" height="15" x="140" y="215" rx="3" ry="3">
+                        </rect>
                     </g>
-                    <g id="row7" class="row7">
-                        <text class="row-number" x="5" y="260">Row 7</text>
-                        <rect id="s-7a" class="seat" width="15" height="15" x="65" y="245" rx="3" ry="3"></rect>
-                        <rect id="s-7b" class="seat" width="15" height="15" x="85" y="245" rx="3" ry="3"></rect>
-                        <rect id="s-7c" class="seat" width="15" height="15" x="120" y="245" rx="3" ry="3"></rect>
-                        <rect id="s-7d" class="seat" width="15" height="15" x="140" y="245" rx="3" ry="3"></rect>
+                    <g id="row7">
+                        <text class="module__rowNumber" x="5" y="260">Row 7</text>
+                        <rect id="s-7a" class="module__seat" width="15" height="15" x="65" y="245" rx="3" ry="3"></rect>
+                        <rect id="s-7b" class="module__seat" width="15" height="15" x="85" y="245" rx="3" ry="3"></rect>
+                        <rect id="s-7c" class="module__seat" width="15" height="15" x="120" y="245" rx="3" ry="3">
+                        </rect>
+                        <rect id="s-7d" class="module__seat" width="15" height="15" x="140" y="245" rx="3" ry="3">
+                        </rect>
                     </g>
-                    <g id="row8" class="row8">
-                        <text class="row-number" x="5" y="290">Row 8</text>
-                        <rect id="s-8a" class="seat" width="15" height="15" x="65" y="275" rx="3" ry="3"></rect>
-                        <rect id="s-8b" class="seat" width="15" height="15" x="85" y="275" rx="3" ry="3"></rect>
-                        <rect id="s-8c" class="seat" width="15" height="15" x="120" y="275" rx="3" ry="3"></rect>
-                        <rect id="s-8d" class="seat" width="15" height="15" x="140" y="275" rx="3" ry="3"></rect>
+                    <g id="row8">
+                        <text class="module__rowNumber" x="5" y="290">Row 8</text>
+                        <rect id="s-8a" class="module__seat" width="15" height="15" x="65" y="275" rx="3" ry="3"></rect>
+                        <rect id="s-8b" class="module__seat" width="15" height="15" x="85" y="275" rx="3" ry="3"></rect>
+                        <rect id="s-8c" class="module__seat" width="15" height="15" x="120" y="275" rx="3" ry="3">
+                        </rect>
+                        <rect id="s-8d" class="module__seat" width="15" height="15" x="140" y="275" rx="3" ry="3">
+                        </rect>
                     </g>
-                    <g id="row9" class="row9">
-                        <text class="row-number" x="5" y="320">Row 9</text>
-                        <rect id="s-9a" class="seat" width="15" height="15" x="65" y="305" rx="3" ry="3"></rect>
-                        <rect id="s-9b" class="seat" width="15" height="15" x="85" y="305" rx="3" ry="3"></rect>
-                        <rect id="s-9c" class="seat" width="15" height="15" x="120" y="305" rx="3" ry="3"></rect>
-                        <rect id="s-9d" class="seat" width="15" height="15" x="140" y="305" rx="3" ry="3"></rect>
+                    <g id="row9">
+                        <text class="module__rowNumber" x="5" y="320">Row 9</text>
+                        <rect id="s-9a" class="module__seat" width="15" height="15" x="65" y="305" rx="3" ry="3"></rect>
+                        <rect id="s-9b" class="module__seat" width="15" height="15" x="85" y="305" rx="3" ry="3"></rect>
+                        <rect id="s-9c" class="module__seat" width="15" height="15" x="120" y="305" rx="3" ry="3">
+                        </rect>
+                        <rect id="s-9d" class="module__seat" width="15" height="15" x="140" y="305" rx="3" ry="3">
+                        </rect>
                     </g>
-                    <g id="row10" class="row10">
-                        <text class="row-number" x="5" y="350">Row 10</text>
-                        <rect id="s-10a" class="seat" width="15" height="15" x="65" y="335" rx="3" ry="3"></rect>
-                        <rect id="s-10b" class="seat" width="15" height="15" x="85" y="335" rx="3" ry="3"></rect>
-                        <rect id="s-10c" class="seat" width="15" height="15" x="120" y="335" rx="3" ry="3"></rect>
-                        <rect id="s-10d" class="seat" width="15" height="15" x="140" y="335" rx="3" ry="3"></rect>
+                    <g id="row10">
+                        <text class="module__rowNumber" x="5" y="350">Row 10</text>
+                        <rect id="s-10a" class="module__seat" width="15" height="15" x="65" y="335" rx="3" ry="3">
+                        </rect>
+                        <rect id="s-10b" class="module__seat" width="15" height="15" x="85" y="335" rx="3" ry="3">
+                        </rect>
+                        <rect id="s-10c" class="module__seat" width="15" height="15" x="120" y="335" rx="3" ry="3">
+                        </rect>
+                        <rect id="s-10d" class="module__seat" width="15" height="15" x="140" y="335" rx="3" ry="3">
+                        </rect>
                     </g>
-                    <g id="row11" class="row11">
-                        <text class="row-number" x="5" y="380">Row 11</text>
-                        <rect id="s-11a" class="seat" width="15" height="15" x="65" y="365" rx="3" ry="3"></rect>
-                        <rect id="s-11b" class="seat" width="15" height="15" x="85" y="365" rx="3" ry="3"></rect>
-                        <rect id="s-11c" class="seat" width="15" height="15" x="120" y="365" rx="3" ry="3"></rect>
-                        <rect id="s-11d" class="seat" width="15" height="15" x="140" y="365" rx="3" ry="3"></rect>
+                    <g id="row11">
+                        <text class="module__rowNumber" x="5" y="380">Row 11</text>
+                        <rect id="s-11a" class="module__seat" width="15" height="15" x="65" y="365" rx="3" ry="3">
+                        </rect>
+                        <rect id="s-11b" class="module__seat" width="15" height="15" x="85" y="365" rx="3" ry="3">
+                        </rect>
+                        <rect id="s-11c" class="module__seat" width="15" height="15" x="120" y="365" rx="3" ry="3">
+                        </rect>
+                        <rect id="s-11d" class="module__seat" width="15" height="15" x="140" y="365" rx="3" ry="3">
+                        </rect>
                     </g>
-                    <g id="row12" class="row12">
-                        <text class="row-number" x="5" y="410">Row 12</text>
-                        <rect id="s-12a" class="seat" width="15" height="15" x="65" y="395" rx="3" ry="3"></rect>
-                        <rect id="s-12b" class="seat" width="15" height="15" x="85" y="395" rx="3" ry="3"></rect>
-                        <rect id="s-12c" class="seat" width="15" height="15" x="120" y="395" rx="3" ry="3"></rect>
-                        <rect id="s-12d" class="seat" width="15" height="15" x="140" y="395" rx="3" ry="3"></rect>
+                    <g id="row12">
+                        <text class="module__rowNumber" x="5" y="410">Row 12</text>
+                        <rect id="s-12a" class="module__seat" width="15" height="15" x="65" y="395" rx="3" ry="3">
+                        </rect>
+                        <rect id="s-12b" class="module__seat" width="15" height="15" x="85" y="395" rx="3" ry="3">
+                        </rect>
+                        <rect id="s-12c" class="module__seat" width="15" height="15" x="120" y="395" rx="3" ry="3">
+                        </rect>
+                        <rect id="s-12d" class="module__seat" width="15" height="15" x="140" y="395" rx="3" ry="3">
+                        </rect>
                     </g>
-                    <g class="exit">
+                    <g class="module__exit">
                         <polygon points="15,425 5,435 15,445"></polygon>
                         <text x="17" y="440">Exit</text>
                     </g>
-                    <g class="plane-side">
+                    <g class="module__planeSide">
                         <polygon points="110,468 65,450 155,450"></polygon>
                         <text x="96" y="440">Rear</text>
                     </g>
-                    <g class="plane-type">
+                    <g class="module__planeType">
                         <text x="4" y="500">ATR 42-600</text>
                     </g>
                 </svg>
                 <hr>
-                <button id="reser-seats-id-s" onclick="resetSeats()">Resetuj wybór</button>
-                <button id="go-to-options-id-s" onclick="openOptions()">Zaakceptuj i przejdź dalej</button>
+                <button onclick="resetSeats()">Resetuj wybór</button>
+                <button onclick="openOptions()">Zaakceptuj i przejdź dalej</button>
                 <button id="return-to-search-id-s">Wróć do wyników wyszukiwania</button>
                 <button id="return-to-start-2-id">Rozpocznij od początku</button>
             </div>
@@ -332,316 +358,470 @@
                 <h2>Wybierz miejsca</h2>
                 <hr />
                 <!--Układ samolotu-->
-                <svg class="seat-SVG" id="seat-map-airbus-svg-id" width="300" height="1090">
-                    <g class="plane-side">
+                <svg class="module__seatSVG" width="300" height="1090">
+                    <g class="module__planeSide">
                         <polygon points="130,2 65,20 195,20"></polygon>
                         <text x="114" y="32">Front</text>
                     </g>
-                    <g class="exit">
+                    <g class="module__exit">
                         <polygon points="15,35 5,45 15,55"></polygon>
                         <text x="17" y="50">Exit</text>
                     </g>
-                    <g class="seat-letter-row">
-                        <text class="seat-letter" x="65" y="50">A</text>
-                        <text class="seat-letter" x="85" y="50">B</text>
-                        <text class="seat-letter" x="105" y="50">C</text>
-                        <text class="seat-letter" x="140" y="50">D</text>
-                        <text class="seat-letter" x="160" y="50">E</text>
-                        <text class="seat-letter" x="180" y="50">F</text>
+                    <g class="module__seatLetterRow">
+                        <text x="65" y="50">A</text>
+                        <text x="85" y="50">B</text>
+                        <text x="105" y="50">C</text>
+                        <text x="140" y="50">D</text>
+                        <text x="160" y="50">E</text>
+                        <text x="180" y="50">F</text>
                     </g>
-                    <g id="row1" class="row1">
-                        <text class="row-number" x="5" y="80">Row 1</text>
-                        <rect id="m-1a" class="seat" width="15" height="15" x="65" y="65" rx="3" ry="3"></rect>
-                        <rect id="m-1b" class="seat" width="15" height="15" x="85" y="65" rx="3" ry="3"></rect>
-                        <rect id="m-1c" class="seat" width="15" height="15" x="105" y="65" rx="3" ry="3"></rect>
-                        <rect id="m-1d" class="seat" width="15" height="15" x="140" y="65" rx="3" ry="3"></rect>
-                        <rect id="m-1e" class="seat" width="15" height="15" x="160" y="65" rx="3" ry="3"></rect>
-                        <rect id="m-1f" class="seat" width="15" height="15" x="180" y="65" rx="3" ry="3"></rect>
+                    <g id="row1">
+                        <text class="module__rowNumber" x="5" y="80">Row 1</text>
+                        <rect id="m-1a" class="module__seat" width="15" height="15" x="65" y="65" rx="3" ry="3"></rect>
+                        <rect id="m-1b" class="module__seat" width="15" height="15" x="85" y="65" rx="3" ry="3"></rect>
+                        <rect id="m-1c" class="module__seat" width="15" height="15" x="105" y="65" rx="3" ry="3"></rect>
+                        <rect id="m-1d" class="module__seat" width="15" height="15" x="140" y="65" rx="3" ry="3"></rect>
+                        <rect id="m-1e" class="module__seat" width="15" height="15" x="160" y="65" rx="3" ry="3"></rect>
+                        <rect id="m-1f" class="module__seat" width="15" height="15" x="180" y="65" rx="3" ry="3"></rect>
                     </g>
-                    <g id="row2" class="row2">
-                        <text class="row-number" x="5" y="110">Row 2</text>
-                        <rect id="m-2a" class="seat" width="15" height="15" x="65" y="95" rx="3" ry="3"></rect>
-                        <rect id="m-2b" class="seat" width="15" height="15" x="85" y="95" rx="3" ry="3"></rect>
-                        <rect id="m-2c" class="seat" width="15" height="15" x="105" y="95" rx="3" ry="3"></rect>
-                        <rect id="m-2d" class="seat" width="15" height="15" x="140" y="95" rx="3" ry="3"></rect>
-                        <rect id="m-2e" class="seat" width="15" height="15" x="160" y="95" rx="3" ry="3"></rect>
-                        <rect id="m-2f" class="seat" width="15" height="15" x="180" y="95" rx="3" ry="3"></rect>
+                    <g id="row2">
+                        <text class="module__rowNumber" x="5" y="110">Row 2</text>
+                        <rect id="m-2a" class="module__seat" width="15" height="15" x="65" y="95" rx="3" ry="3"></rect>
+                        <rect id="m-2b" class="module__seat" width="15" height="15" x="85" y="95" rx="3" ry="3"></rect>
+                        <rect id="m-2c" class="module__seat" width="15" height="15" x="105" y="95" rx="3" ry="3"></rect>
+                        <rect id="m-2d" class="module__seat" width="15" height="15" x="140" y="95" rx="3" ry="3"></rect>
+                        <rect id="m-2e" class="module__seat" width="15" height="15" x="160" y="95" rx="3" ry="3"></rect>
+                        <rect id="m-2f" class="module__seat" width="15" height="15" x="180" y="95" rx="3" ry="3"></rect>
                     </g>
-                    <g id="row3" class="row3">
-                        <text class="row-number" x="5" y="140">Row 3</text>
-                        <rect id="m-3a" class="seat" width="15" height="15" x="65" y="125" rx="3" ry="3"></rect>
-                        <rect id="m-3b" class="seat" width="15" height="15" x="85" y="125" rx="3" ry="3"></rect>
-                        <rect id="m-3c" class="seat" width="15" height="15" x="105" y="125" rx="3" ry="3"></rect>
-                        <rect id="m-3d" class="seat" width="15" height="15" x="140" y="125" rx="3" ry="3"></rect>
-                        <rect id="m-3e" class="seat" width="15" height="15" x="160" y="125" rx="3" ry="3"></rect>
-                        <rect id="m-3f" class="seat" width="15" height="15" x="180" y="125" rx="3" ry="3"></rect>
+                    <g id="row3">
+                        <text class="module__rowNumber" x="5" y="140">Row 3</text>
+                        <rect id="m-3a" class="module__seat" width="15" height="15" x="65" y="125" rx="3" ry="3"></rect>
+                        <rect id="m-3b" class="module__seat" width="15" height="15" x="85" y="125" rx="3" ry="3"></rect>
+                        <rect id="m-3c" class="module__seat" width="15" height="15" x="105" y="125" rx="3" ry="3">
+                        </rect>
+                        <rect id="m-3d" class="module__seat" width="15" height="15" x="140" y="125" rx="3" ry="3">
+                        </rect>
+                        <rect id="m-3e" class="module__seat" width="15" height="15" x="160" y="125" rx="3" ry="3">
+                        </rect>
+                        <rect id="m-3f" class="module__seat" width="15" height="15" x="180" y="125" rx="3" ry="3">
+                        </rect>
                     </g>
-                    <g id="row4" class="row4">
-                        <text class="row-number" x="5" y="170">Row 4</text>
-                        <rect id="m-4a" class="seat" width="15" height="15" x="65" y="155" rx="3" ry="3"></rect>
-                        <rect id="m-4b" class="seat" width="15" height="15" x="85" y="155" rx="3" ry="3"></rect>
-                        <rect id="m-4c" class="seat" width="15" height="15" x="105" y="155" rx="3" ry="3"></rect>
-                        <rect id="m-4d" class="seat" width="15" height="15" x="140" y="155" rx="3" ry="3"></rect>
-                        <rect id="m-4e" class="seat" width="15" height="15" x="160" y="155" rx="3" ry="3"></rect>
-                        <rect id="m-4f" class="seat" width="15" height="15" x="180" y="155" rx="3" ry="3"></rect>
+                    <g id="row4">
+                        <text class="module__rowNumber" x="5" y="170">Row 4</text>
+                        <rect id="m-4a" class="module__seat" width="15" height="15" x="65" y="155" rx="3" ry="3"></rect>
+                        <rect id="m-4b" class="module__seat" width="15" height="15" x="85" y="155" rx="3" ry="3"></rect>
+                        <rect id="m-4c" class="module__seat" width="15" height="15" x="105" y="155" rx="3" ry="3">
+                        </rect>
+                        <rect id="m-4d" class="module__seat" width="15" height="15" x="140" y="155" rx="3" ry="3">
+                        </rect>
+                        <rect id="m-4e" class="module__seat" width="15" height="15" x="160" y="155" rx="3" ry="3">
+                        </rect>
+                        <rect id="m-4f" class="module__seat" width="15" height="15" x="180" y="155" rx="3" ry="3">
+                        </rect>
                     </g>
-                    <g id="row5" class="row5">
-                        <text class="row-number" x="5" y="200">Row 5</text>
-                        <rect id="m-5a" class="seat" width="15" height="15" x="65" y="185" rx="3" ry="3"></rect>
-                        <rect id="m-5b" class="seat" width="15" height="15" x="85" y="185" rx="3" ry="3"></rect>
-                        <rect id="m-5c" class="seat" width="15" height="15" x="105" y="185" rx="3" ry="3"></rect>
-                        <rect id="m-5d" class="seat" width="15" height="15" x="140" y="185" rx="3" ry="3"></rect>
-                        <rect id="m-5e" class="seat" width="15" height="15" x="160" y="185" rx="3" ry="3"></rect>
-                        <rect id="m-5f" class="seat" width="15" height="15" x="180" y="185" rx="3" ry="3"></rect>
+                    <g id="row5">
+                        <text class="module__rowNumber" x="5" y="200">Row 5</text>
+                        <rect id="m-5a" class="module__seat" width="15" height="15" x="65" y="185" rx="3" ry="3"></rect>
+                        <rect id="m-5b" class="module__seat" width="15" height="15" x="85" y="185" rx="3" ry="3"></rect>
+                        <rect id="m-5c" class="module__seat" width="15" height="15" x="105" y="185" rx="3" ry="3">
+                        </rect>
+                        <rect id="m-5d" class="module__seat" width="15" height="15" x="140" y="185" rx="3" ry="3">
+                        </rect>
+                        <rect id="m-5e" class="module__seat" width="15" height="15" x="160" y="185" rx="3" ry="3">
+                        </rect>
+                        <rect id="m-5f" class="module__seat" width="15" height="15" x="180" y="185" rx="3" ry="3">
+                        </rect>
                     </g>
-                    <g id="row6" class="row6">
-                        <text class="row-number" x="5" y="230">Row 6</text>
-                        <rect id="m-6a" class="seat" width="15" height="15" x="65" y="215" rx="3" ry="3"></rect>
-                        <rect id="m-6b" class="seat" width="15" height="15" x="85" y="215" rx="3" ry="3"></rect>
-                        <rect id="m-6c" class="seat" width="15" height="15" x="105" y="215" rx="3" ry="3"></rect>
-                        <rect id="m-6d" class="seat" width="15" height="15" x="140" y="215" rx="3" ry="3"></rect>
-                        <rect id="m-6e" class="seat" width="15" height="15" x="160" y="215" rx="3" ry="3"></rect>
-                        <rect id="m-6f" class="seat" width="15" height="15" x="180" y="215" rx="3" ry="3"></rect>
+                    <g id="row6">
+                        <text class="module__rowNumber" x="5" y="230">Row 6</text>
+                        <rect id="m-6a" class="module__seat" width="15" height="15" x="65" y="215" rx="3" ry="3"></rect>
+                        <rect id="m-6b" class="module__seat" width="15" height="15" x="85" y="215" rx="3" ry="3"></rect>
+                        <rect id="m-6c" class="module__seat" width="15" height="15" x="105" y="215" rx="3" ry="3">
+                        </rect>
+                        <rect id="m-6d" class="module__seat" width="15" height="15" x="140" y="215" rx="3" ry="3">
+                        </rect>
+                        <rect id="m-6e" class="module__seat" width="15" height="15" x="160" y="215" rx="3" ry="3">
+                        </rect>
+                        <rect id="m-6f" class="module__seat" width="15" height="15" x="180" y="215" rx="3" ry="3">
+                        </rect>
                     </g>
-                    <g id="row7" class="row7">
-                        <text class="row-number" x="5" y="260">Row 7</text>
-                        <rect id="m-7a" class="seat" width="15" height="15" x="65" y="245" rx="3" ry="3"></rect>
-                        <rect id="m-7b" class="seat" width="15" height="15" x="85" y="245" rx="3" ry="3"></rect>
-                        <rect id="m-7c" class="seat" width="15" height="15" x="105" y="245" rx="3" ry="3"></rect>
-                        <rect id="m-7d" class="seat" width="15" height="15" x="140" y="245" rx="3" ry="3"></rect>
-                        <rect id="m-7e" class="seat" width="15" height="15" x="160" y="245" rx="3" ry="3"></rect>
-                        <rect id="m-7f" class="seat" width="15" height="15" x="180" y="245" rx="3" ry="3"></rect>
+                    <g id="row7">
+                        <text class="module__rowNumber" x="5" y="260">Row 7</text>
+                        <rect id="m-7a" class="module__seat" width="15" height="15" x="65" y="245" rx="3" ry="3"></rect>
+                        <rect id="m-7b" class="module__seat" width="15" height="15" x="85" y="245" rx="3" ry="3"></rect>
+                        <rect id="m-7c" class="module__seat" width="15" height="15" x="105" y="245" rx="3" ry="3">
+                        </rect>
+                        <rect id="m-7d" class="module__seat" width="15" height="15" x="140" y="245" rx="3" ry="3">
+                        </rect>
+                        <rect id="m-7e" class="module__seat" width="15" height="15" x="160" y="245" rx="3" ry="3">
+                        </rect>
+                        <rect id="m-7f" class="module__seat" width="15" height="15" x="180" y="245" rx="3" ry="3">
+                        </rect>
                     </g>
-                    <g id="row8" class="row8">
-                        <text class="row-number" x="5" y="290">Row 8</text>
-                        <rect id="m-8a" class="seat" width="15" height="15" x="65" y="275" rx="3" ry="3"></rect>
-                        <rect id="m-8b" class="seat" width="15" height="15" x="85" y="275" rx="3" ry="3"></rect>
-                        <rect id="m-8c" class="seat" width="15" height="15" x="105" y="275" rx="3" ry="3"></rect>
-                        <rect id="m-8d" class="seat" width="15" height="15" x="140" y="275" rx="3" ry="3"></rect>
-                        <rect id="m-8e" class="seat" width="15" height="15" x="160" y="275" rx="3" ry="3"></rect>
-                        <rect id="m-8f" class="seat" width="15" height="15" x="180" y="275" rx="3" ry="3"></rect>
+                    <g id="row8">
+                        <text class="module__rowNumber" x="5" y="290">Row 8</text>
+                        <rect id="m-8a" class="module__seat" width="15" height="15" x="65" y="275" rx="3" ry="3"></rect>
+                        <rect id="m-8b" class="module__seat" width="15" height="15" x="85" y="275" rx="3" ry="3"></rect>
+                        <rect id="m-8c" class="module__seat" width="15" height="15" x="105" y="275" rx="3" ry="3">
+                        </rect>
+                        <rect id="m-8d" class="module__seat" width="15" height="15" x="140" y="275" rx="3" ry="3">
+                        </rect>
+                        <rect id="m-8e" class="module__seat" width="15" height="15" x="160" y="275" rx="3" ry="3">
+                        </rect>
+                        <rect id="m-8f" class="module__seat" width="15" height="15" x="180" y="275" rx="3" ry="3">
+                        </rect>
                     </g>
-                    <g id="row9" class="row9">
-                        <text class="row-number" x="5" y="320">Row 9</text>
-                        <rect id="m-9a" class="seat" width="15" height="15" x="65" y="305" rx="3" ry="3"></rect>
-                        <rect id="m-9b" class="seat" width="15" height="15" x="85" y="305" rx="3" ry="3"></rect>
-                        <rect id="m-9c" class="seat" width="15" height="15" x="105" y="305" rx="3" ry="3"></rect>
-                        <rect id="m-9d" class="seat" width="15" height="15" x="140" y="305" rx="3" ry="3"></rect>
-                        <rect id="m-9e" class="seat" width="15" height="15" x="160" y="305" rx="3" ry="3"></rect>
-                        <rect id="m-9f" class="seat" width="15" height="15" x="180" y="305" rx="3" ry="3"></rect>
+                    <g id="row9">
+                        <text class="module__rowNumber" x="5" y="320">Row 9</text>
+                        <rect id="m-9a" class="module__seat" width="15" height="15" x="65" y="305" rx="3" ry="3"></rect>
+                        <rect id="m-9b" class="module__seat" width="15" height="15" x="85" y="305" rx="3" ry="3"></rect>
+                        <rect id="m-9c" class="module__seat" width="15" height="15" x="105" y="305" rx="3" ry="3">
+                        </rect>
+                        <rect id="m-9d" class="module__seat" width="15" height="15" x="140" y="305" rx="3" ry="3">
+                        </rect>
+                        <rect id="m-9e" class="module__seat" width="15" height="15" x="160" y="305" rx="3" ry="3">
+                        </rect>
+                        <rect id="m-9f" class="module__seat" width="15" height="15" x="180" y="305" rx="3" ry="3">
+                        </rect>
                     </g>
-                    <g id="row10" class="row10">
-                        <text class="row-number" x="5" y="350">Row 10</text>
-                        <rect id="m-10a" class="seat" width="15" height="15" x="65" y="335" rx="3" ry="3"></rect>
-                        <rect id="m-10b" class="seat" width="15" height="15" x="85" y="335" rx="3" ry="3"></rect>
-                        <rect id="m-10c" class="seat" width="15" height="15" x="105" y="335" rx="3" ry="3"></rect>
-                        <rect id="m-10d" class="seat" width="15" height="15" x="140" y="335" rx="3" ry="3"></rect>
-                        <rect id="m-10e" class="seat" width="15" height="15" x="160" y="335" rx="3" ry="3"></rect>
-                        <rect id="m-10f" class="seat" width="15" height="15" x="180" y="335" rx="3" ry="3"></rect>
+                    <g id="row10">
+                        <text class="module__rowNumber" x="5" y="350">Row 10</text>
+                        <rect id="m-10a" class="module__seat" width="15" height="15" x="65" y="335" rx="3" ry="3">
+                        </rect>
+                        <rect id="m-10b" class="module__seat" width="15" height="15" x="85" y="335" rx="3" ry="3">
+                        </rect>
+                        <rect id="m-10c" class="module__seat" width="15" height="15" x="105" y="335" rx="3" ry="3">
+                        </rect>
+                        <rect id="m-10d" class="module__seat" width="15" height="15" x="140" y="335" rx="3" ry="3">
+                        </rect>
+                        <rect id="m-10e" class="module__seat" width="15" height="15" x="160" y="335" rx="3" ry="3">
+                        </rect>
+                        <rect id="m-10f" class="module__seat" width="15" height="15" x="180" y="335" rx="3" ry="3">
+                        </rect>
                     </g>
-                    <g class="exit">
+                    <g class="module__exit">
                         <polygon points="15,355 5,365 15,375"></polygon>
                         <text x="17" y="370">Exit</text>
                     </g>
-                    <g id="row11" class="row11">
-                        <text class="row-number" x="5" y="395">Row 11</text>
-                        <rect id="m-11a" class="seat" width="15" height="15" x="65" y="380" rx="3" ry="3"></rect>
-                        <rect id="m-11b" class="seat" width="15" height="15" x="85" y="380" rx="3" ry="3"></rect>
-                        <rect id="m-11c" class="seat" width="15" height="15" x="105" y="380" rx="3" ry="3"></rect>
-                        <rect id="m-11d" class="seat" width="15" height="15" x="140" y="380" rx="3" ry="3"></rect>
-                        <rect id="m-11e" class="seat" width="15" height="15" x="160" y="380" rx="3" ry="3"></rect>
-                        <rect id="m-11f" class="seat" width="15" height="15" x="180" y="380" rx="3" ry="3"></rect>
+                    <g id="row11">
+                        <text class="module__rowNumber" x="5" y="395">Row 11</text>
+                        <rect id="m-11a" class="module__seat" width="15" height="15" x="65" y="380" rx="3" ry="3">
+                        </rect>
+                        <rect id="m-11b" class="module__seat" width="15" height="15" x="85" y="380" rx="3" ry="3">
+                        </rect>
+                        <rect id="m-11c" class="module__seat" width="15" height="15" x="105" y="380" rx="3" ry="3">
+                        </rect>
+                        <rect id="m-11d" class="module__seat" width="15" height="15" x="140" y="380" rx="3" ry="3">
+                        </rect>
+                        <rect id="m-11e" class="module__seat" width="15" height="15" x="160" y="380" rx="3" ry="3">
+                        </rect>
+                        <rect id="m-11f" class="module__seat" width="15" height="15" x="180" y="380" rx="3" ry="3">
+                        </rect>
                     </g>
-                    <g class="exit">
+                    <g class="module__exit">
                         <polygon points="15,400 5,410 15,420"></polygon>
                         <text x="17" y="415">Exit</text>
                     </g>
-                    <g id="row12" class="row12">
-                        <text class="row-number" x="5" y="440">Row 12</text>
-                        <rect id="m-12a" class="seat" width="15" height="15" x="65" y="425" rx="3" ry="3"></rect>
-                        <rect id="m-12b" class="seat" width="15" height="15" x="85" y="425" rx="3" ry="3"></rect>
-                        <rect id="m-12c" class="seat" width="15" height="15" x="105" y="425" rx="3" ry="3"></rect>
-                        <rect id="m-12d" class="seat" width="15" height="15" x="140" y="425" rx="3" ry="3"></rect>
-                        <rect id="m-12e" class="seat" width="15" height="15" x="160" y="425" rx="3" ry="3"></rect>
-                        <rect id="m-12f" class="seat" width="15" height="15" x="180" y="425" rx="3" ry="3"></rect>
+                    <g id="row12">
+                        <text class="module__rowNumber" x="5" y="440">Row 12</text>
+                        <rect id="m-12a" class="module__seat" width="15" height="15" x="65" y="425" rx="3" ry="3">
+                        </rect>
+                        <rect id="m-12b" class="module__seat" width="15" height="15" x="85" y="425" rx="3" ry="3">
+                        </rect>
+                        <rect id="m-12c" class="module__seat" width="15" height="15" x="105" y="425" rx="3" ry="3">
+                        </rect>
+                        <rect id="m-12d" class="module__seat" width="15" height="15" x="140" y="425" rx="3" ry="3">
+                        </rect>
+                        <rect id="m-12e" class="module__seat" width="15" height="15" x="160" y="425" rx="3" ry="3">
+                        </rect>
+                        <rect id="m-12f" class="module__seat" width="15" height="15" x="180" y="425" rx="3" ry="3">
+                        </rect>
                     </g>
-                    <g id="row13" class="row13">
-                        <text class="row-number" x="5" y="470">Row 13</text>
-                        <rect id="m-13a" class="seat" width="15" height="15" x="65" y="455" rx="3" ry="3"></rect>
-                        <rect id="m-13b" class="seat" width="15" height="15" x="85" y="455" rx="3" ry="3"></rect>
-                        <rect id="m-13c" class="seat" width="15" height="15" x="105" y="455" rx="3" ry="3"></rect>
-                        <rect id="m-13d" class="seat" width="15" height="15" x="140" y="455" rx="3" ry="3"></rect>
-                        <rect id="m-13e" class="seat" width="15" height="15" x="160" y="455" rx="3" ry="3"></rect>
-                        <rect id="m-13f" class="seat" width="15" height="15" x="180" y="455" rx="3" ry="3"></rect>
+                    <g id="row13">
+                        <text class="module__rowNumber" x="5" y="470">Row 13</text>
+                        <rect id="m-13a" class="module__seat" width="15" height="15" x="65" y="455" rx="3" ry="3">
+                        </rect>
+                        <rect id="m-13b" class="module__seat" width="15" height="15" x="85" y="455" rx="3" ry="3">
+                        </rect>
+                        <rect id="m-13c" class="module__seat" width="15" height="15" x="105" y="455" rx="3" ry="3">
+                        </rect>
+                        <rect id="m-13d" class="module__seat" width="15" height="15" x="140" y="455" rx="3" ry="3">
+                        </rect>
+                        <rect id="m-13e" class="module__seat" width="15" height="15" x="160" y="455" rx="3" ry="3">
+                        </rect>
+                        <rect id="m-13f" class="module__seat" width="15" height="15" x="180" y="455" rx="3" ry="3">
+                        </rect>
                     </g>
-                    <g id="row14" class="row14">
-                        <text class="row-number" x="5" y="500">Row 14</text>
-                        <rect id="m-14a" class="seat" width="15" height="15" x="65" y="485" rx="3" ry="3"></rect>
-                        <rect id="m-14b" class="seat" width="15" height="15" x="85" y="485" rx="3" ry="3"></rect>
-                        <rect id="m-14c" class="seat" width="15" height="15" x="105" y="485" rx="3" ry="3"></rect>
-                        <rect id="m-14d" class="seat" width="15" height="15" x="140" y="485" rx="3" ry="3"></rect>
-                        <rect id="m-14e" class="seat" width="15" height="15" x="160" y="485" rx="3" ry="3"></rect>
-                        <rect id="m-14f" class="seat" width="15" height="15" x="180" y="485" rx="3" ry="3"></rect>
+                    <g id="row14">
+                        <text class="module__rowNumber" x="5" y="500">Row 14</text>
+                        <rect id="m-14a" class="module__seat" width="15" height="15" x="65" y="485" rx="3" ry="3">
+                        </rect>
+                        <rect id="m-14b" class="module__seat" width="15" height="15" x="85" y="485" rx="3" ry="3">
+                        </rect>
+                        <rect id="m-14c" class="module__seat" width="15" height="15" x="105" y="485" rx="3" ry="3">
+                        </rect>
+                        <rect id="m-14d" class="module__seat" width="15" height="15" x="140" y="485" rx="3" ry="3">
+                        </rect>
+                        <rect id="m-14e" class="module__seat" width="15" height="15" x="160" y="485" rx="3" ry="3">
+                        </rect>
+                        <rect id="m-14f" class="module__seat" width="15" height="15" x="180" y="485" rx="3" ry="3">
+                        </rect>
                     </g>
-                    <g id="row15" class="row15">
-                        <text class="row-number" x="5" y="530">Row 15</text>
-                        <rect id="m-15a" class="seat" width="15" height="15" x="65" y="515" rx="3" ry="3"></rect>
-                        <rect id="m-15b" class="seat" width="15" height="15" x="85" y="515" rx="3" ry="3"></rect>
-                        <rect id="m-15c" class="seat" width="15" height="15" x="105" y="515" rx="3" ry="3"></rect>
-                        <rect id="m-15d" class="seat" width="15" height="15" x="140" y="515" rx="3" ry="3"></rect>
-                        <rect id="m-15e" class="seat" width="15" height="15" x="160" y="515" rx="3" ry="3"></rect>
-                        <rect id="m-15f" class="seat" width="15" height="15" x="180" y="515" rx="3" ry="3"></rect>
+                    <g id="row15">
+                        <text class="module__rowNumber" x="5" y="530">Row 15</text>
+                        <rect id="m-15a" class="module__seat" width="15" height="15" x="65" y="515" rx="3" ry="3">
+                        </rect>
+                        <rect id="m-15b" class="module__seat" width="15" height="15" x="85" y="515" rx="3" ry="3">
+                        </rect>
+                        <rect id="m-15c" class="module__seat" width="15" height="15" x="105" y="515" rx="3" ry="3">
+                        </rect>
+                        <rect id="m-15d" class="module__seat" width="15" height="15" x="140" y="515" rx="3" ry="3">
+                        </rect>
+                        <rect id="m-15e" class="module__seat" width="15" height="15" x="160" y="515" rx="3" ry="3">
+                        </rect>
+                        <rect id="m-15f" class="module__seat" width="15" height="15" x="180" y="515" rx="3" ry="3">
+                        </rect>
                     </g>
-                    <g id="row16" class="row16">
-                        <text class="row-number" x="5" y="560">Row 16</text>
-                        <rect id="m-16a" class="seat" width="15" height="15" x="65" y="545" rx="3" ry="3"></rect>
-                        <rect id="m-16b" class="seat" width="15" height="15" x="85" y="545" rx="3" ry="3"></rect>
-                        <rect id="m-16c" class="seat" width="15" height="15" x="105" y="545" rx="3" ry="3"></rect>
-                        <rect id="m-16d" class="seat" width="15" height="15" x="140" y="545" rx="3" ry="3"></rect>
-                        <rect id="m-16e" class="seat" width="15" height="15" x="160" y="545" rx="3" ry="3"></rect>
-                        <rect id="m-16f" class="seat" width="15" height="15" x="180" y="545" rx="3" ry="3"></rect>
+                    <g id="row16">
+                        <text class="module__rowNumber" x="5" y="560">Row 16</text>
+                        <rect id="m-16a" class="module__seat" width="15" height="15" x="65" y="545" rx="3" ry="3">
+                        </rect>
+                        <rect id="m-16b" class="module__seat" width="15" height="15" x="85" y="545" rx="3" ry="3">
+                        </rect>
+                        <rect id="m-16c" class="module__seat" width="15" height="15" x="105" y="545" rx="3" ry="3">
+                        </rect>
+                        <rect id="m-16d" class="module__seat" width="15" height="15" x="140" y="545" rx="3" ry="3">
+                        </rect>
+                        <rect id="m-16e" class="module__seat" width="15" height="15" x="160" y="545" rx="3" ry="3">
+                        </rect>
+                        <rect id="m-16f" class="module__seat" width="15" height="15" x="180" y="545" rx="3" ry="3">
+                        </rect>
                     </g>
-                    <g id="row17" class="row17">
-                        <text class="row-number" x="5" y="590">Row 17</text>
-                        <rect id="m-17a" class="seat" width="15" height="15" x="65" y="575" rx="3" ry="3"></rect>
-                        <rect id="m-17b" class="seat" width="15" height="15" x="85" y="575" rx="3" ry="3"></rect>
-                        <rect id="m-17c" class="seat" width="15" height="15" x="105" y="575" rx="3" ry="3"></rect>
-                        <rect id="m-17d" class="seat" width="15" height="15" x="140" y="575" rx="3" ry="3"></rect>
-                        <rect id="m-17e" class="seat" width="15" height="15" x="160" y="575" rx="3" ry="3"></rect>
-                        <rect id="m-17f" class="seat" width="15" height="15" x="180" y="575" rx="3" ry="3"></rect>
+                    <g id="row17">
+                        <text class="module__rowNumber" x="5" y="590">Row 17</text>
+                        <rect id="m-17a" class="module__seat" width="15" height="15" x="65" y="575" rx="3" ry="3">
+                        </rect>
+                        <rect id="m-17b" class="module__seat" width="15" height="15" x="85" y="575" rx="3" ry="3">
+                        </rect>
+                        <rect id="m-17c" class="module__seat" width="15" height="15" x="105" y="575" rx="3" ry="3">
+                        </rect>
+                        <rect id="m-17d" class="module__seat" width="15" height="15" x="140" y="575" rx="3" ry="3">
+                        </rect>
+                        <rect id="m-17e" class="module__seat" width="15" height="15" x="160" y="575" rx="3" ry="3">
+                        </rect>
+                        <rect id="m-17f" class="module__seat" width="15" height="15" x="180" y="575" rx="3" ry="3">
+                        </rect>
                     </g>
-                    <g id="row18" class="row18">
-                        <text class="row-number" x="5" y="620">Row 18</text>
-                        <rect id="m-18a" class="seat" width="15" height="15" x="65" y="605" rx="3" ry="3"></rect>
-                        <rect id="m-18b" class="seat" width="15" height="15" x="85" y="605" rx="3" ry="3"></rect>
-                        <rect id="m-18c" class="seat" width="15" height="15" x="105" y="605" rx="3" ry="3"></rect>
-                        <rect id="m-18d" class="seat" width="15" height="15" x="140" y="605" rx="3" ry="3"></rect>
-                        <rect id="m-18e" class="seat" width="15" height="15" x="160" y="605" rx="3" ry="3"></rect>
-                        <rect id="m-18f" class="seat" width="15" height="15" x="180" y="605" rx="3" ry="3"></rect>
+                    <g id="row18">
+                        <text class="module__rowNumber" x="5" y="620">Row 18</text>
+                        <rect id="m-18a" class="module__seat" width="15" height="15" x="65" y="605" rx="3" ry="3">
+                        </rect>
+                        <rect id="m-18b" class="module__seat" width="15" height="15" x="85" y="605" rx="3" ry="3">
+                        </rect>
+                        <rect id="m-18c" class="module__seat" width="15" height="15" x="105" y="605" rx="3" ry="3">
+                        </rect>
+                        <rect id="m-18d" class="module__seat" width="15" height="15" x="140" y="605" rx="3" ry="3">
+                        </rect>
+                        <rect id="m-18e" class="module__seat" width="15" height="15" x="160" y="605" rx="3" ry="3">
+                        </rect>
+                        <rect id="m-18f" class="module__seat" width="15" height="15" x="180" y="605" rx="3" ry="3">
+                        </rect>
                     </g>
-                    <g id="row19" class="row19">
-                        <text class="row-number" x="5" y="650">Row 19</text>
-                        <rect id="m-19a" class="seat" width="15" height="15" x="65" y="635" rx="3" ry="3"></rect>
-                        <rect id="m-19b" class="seat" width="15" height="15" x="85" y="635" rx="3" ry="3"></rect>
-                        <rect id="m-19c" class="seat" width="15" height="15" x="105" y="635" rx="3" ry="3"></rect>
-                        <rect id="m-19d" class="seat" width="15" height="15" x="140" y="635" rx="3" ry="3"></rect>
-                        <rect id="m-19e" class="seat" width="15" height="15" x="160" y="635" rx="3" ry="3"></rect>
-                        <rect id="m-19f" class="seat" width="15" height="15" x="180" y="635" rx="3" ry="3"></rect>
+                    <g id="row19">
+                        <text class="module__rowNumber" x="5" y="650">Row 19</text>
+                        <rect id="m-19a" class="module__seat" width="15" height="15" x="65" y="635" rx="3" ry="3">
+                        </rect>
+                        <rect id="m-19b" class="module__seat" width="15" height="15" x="85" y="635" rx="3" ry="3">
+                        </rect>
+                        <rect id="m-19c" class="module__seat" width="15" height="15" x="105" y="635" rx="3" ry="3">
+                        </rect>
+                        <rect id="m-19d" class="module__seat" width="15" height="15" x="140" y="635" rx="3" ry="3">
+                        </rect>
+                        <rect id="m-19e" class="module__seat" width="15" height="15" x="160" y="635" rx="3" ry="3">
+                        </rect>
+                        <rect id="m-19f" class="module__seat" width="15" height="15" x="180" y="635" rx="3" ry="3">
+                        </rect>
                     </g>
-                    <g id="row20" class="row20">
-                        <text class="row-number" x="5" y="680">Row 20</text>
-                        <rect id="m-20a" class="seat" width="15" height="15" x="65" y="665" rx="3" ry="3"></rect>
-                        <rect id="m-20b" class="seat" width="15" height="15" x="85" y="665" rx="3" ry="3"></rect>
-                        <rect id="m-20c" class="seat" width="15" height="15" x="105" y="665" rx="3" ry="3"></rect>
-                        <rect id="m-20d" class="seat" width="15" height="15" x="140" y="665" rx="3" ry="3"></rect>
-                        <rect id="m-20e" class="seat" width="15" height="15" x="160" y="665" rx="3" ry="3"></rect>
-                        <rect id="m-20f" class="seat" width="15" height="15" x="180" y="665" rx="3" ry="3"></rect>
+                    <g id="row20">
+                        <text class="module__rowNumber" x="5" y="680">Row 20</text>
+                        <rect id="m-20a" class="module__seat" width="15" height="15" x="65" y="665" rx="3" ry="3">
+                        </rect>
+                        <rect id="m-20b" class="module__seat" width="15" height="15" x="85" y="665" rx="3" ry="3">
+                        </rect>
+                        <rect id="m-20c" class="module__seat" width="15" height="15" x="105" y="665" rx="3" ry="3">
+                        </rect>
+                        <rect id="m-20d" class="module__seat" width="15" height="15" x="140" y="665" rx="3" ry="3">
+                        </rect>
+                        <rect id="m-20e" class="module__seat" width="15" height="15" x="160" y="665" rx="3" ry="3">
+                        </rect>
+                        <rect id="m-20f" class="module__seat" width="15" height="15" x="180" y="665" rx="3" ry="3">
+                        </rect>
                     </g>
-                    <g id="row21" class="row21">
-                        <text class="row-number" x="5" y="710">Row 21</text>
-                        <rect id="m-21a" class="seat" width="15" height="15" x="65" y="695" rx="3" ry="3"></rect>
-                        <rect id="m-21b" class="seat" width="15" height="15" x="85" y="695" rx="3" ry="3"></rect>
-                        <rect id="m-21c" class="seat" width="15" height="15" x="105" y="695" rx="3" ry="3"></rect>
-                        <rect id="m-21d" class="seat" width="15" height="15" x="140" y="695" rx="3" ry="3"></rect>
-                        <rect id="m-21e" class="seat" width="15" height="15" x="160" y="695" rx="3" ry="3"></rect>
-                        <rect id="m-21f" class="seat" width="15" height="15" x="180" y="695" rx="3" ry="3"></rect>
+                    <g id="row21">
+                        <text class="module__rowNumber" x="5" y="710">Row 21</text>
+                        <rect id="m-21a" class="module__seat" width="15" height="15" x="65" y="695" rx="3" ry="3">
+                        </rect>
+                        <rect id="m-21b" class="module__seat" width="15" height="15" x="85" y="695" rx="3" ry="3">
+                        </rect>
+                        <rect id="m-21c" class="module__seat" width="15" height="15" x="105" y="695" rx="3" ry="3">
+                        </rect>
+                        <rect id="m-21d" class="module__seat" width="15" height="15" x="140" y="695" rx="3" ry="3">
+                        </rect>
+                        <rect id="m-21e" class="module__seat" width="15" height="15" x="160" y="695" rx="3" ry="3">
+                        </rect>
+                        <rect id="m-21f" class="module__seat" width="15" height="15" x="180" y="695" rx="3" ry="3">
+                        </rect>
                     </g>
-                    <g id="row22" class="row22">
-                        <text class="row-number" x="5" y="740">Row 22</text>
-                        <rect id="m-22a" class="seat" width="15" height="15" x="65" y="725" rx="3" ry="3"></rect>
-                        <rect id="m-22b" class="seat" width="15" height="15" x="85" y="725" rx="3" ry="3"></rect>
-                        <rect id="m-22c" class="seat" width="15" height="15" x="105" y="725" rx="3" ry="3"></rect>
-                        <rect id="m-22d" class="seat" width="15" height="15" x="140" y="725" rx="3" ry="3"></rect>
-                        <rect id="m-22e" class="seat" width="15" height="15" x="160" y="725" rx="3" ry="3"></rect>
-                        <rect id="m-22f" class="seat" width="15" height="15" x="180" y="725" rx="3" ry="3"></rect>
+                    <g id="row22">
+                        <text class="module__rowNumber" x="5" y="740">Row 22</text>
+                        <rect id="m-22a" class="module__seat" width="15" height="15" x="65" y="725" rx="3" ry="3">
+                        </rect>
+                        <rect id="m-22b" class="module__seat" width="15" height="15" x="85" y="725" rx="3" ry="3">
+                        </rect>
+                        <rect id="m-22c" class="module__seat" width="15" height="15" x="105" y="725" rx="3" ry="3">
+                        </rect>
+                        <rect id="m-22d" class="module__seat" width="15" height="15" x="140" y="725" rx="3" ry="3">
+                        </rect>
+                        <rect id="m-22e" class="module__seat" width="15" height="15" x="160" y="725" rx="3" ry="3">
+                        </rect>
+                        <rect id="m-22f" class="module__seat" width="15" height="15" x="180" y="725" rx="3" ry="3">
+                        </rect>
                     </g>
-                    <g id="row23" class="row23">
-                        <text class="row-number" x="5" y="770">Row 23</text>
-                        <rect id="m-23a" class="seat" width="15" height="15" x="65" y="755" rx="3" ry="3"></rect>
-                        <rect id="m-23b" class="seat" width="15" height="15" x="85" y="755" rx="3" ry="3"></rect>
-                        <rect id="m-23c" class="seat" width="15" height="15" x="105" y="755" rx="3" ry="3"></rect>
-                        <rect id="m-23d" class="seat" width="15" height="15" x="140" y="755" rx="3" ry="3"></rect>
-                        <rect id="m-23e" class="seat" width="15" height="15" x="160" y="755" rx="3" ry="3"></rect>
-                        <rect id="m-23f" class="seat" width="15" height="15" x="180" y="755" rx="3" ry="3"></rect>
+                    <g id="row23">
+                        <text class="module__rowNumber" x="5" y="770">Row 23</text>
+                        <rect id="m-23a" class="module__seat" width="15" height="15" x="65" y="755" rx="3" ry="3">
+                        </rect>
+                        <rect id="m-23b" class="module__seat" width="15" height="15" x="85" y="755" rx="3" ry="3">
+                        </rect>
+                        <rect id="m-23c" class="module__seat" width="15" height="15" x="105" y="755" rx="3" ry="3">
+                        </rect>
+                        <rect id="m-23d" class="module__seat" width="15" height="15" x="140" y="755" rx="3" ry="3">
+                        </rect>
+                        <rect id="m-23e" class="module__seat" width="15" height="15" x="160" y="755" rx="3" ry="3">
+                        </rect>
+                        <rect id="m-23f" class="module__seat" width="15" height="15" x="180" y="755" rx="3" ry="3">
+                        </rect>
                     </g>
-                    <g id="row24" class="row24">
-                        <text class="row-number" x="5" y="800">Row 24</text>
-                        <rect id="m-24a" class="seat" width="15" height="15" x="65" y="785" rx="3" ry="3"></rect>
-                        <rect id="m-24b" class="seat" width="15" height="15" x="85" y="785" rx="3" ry="3"></rect>
-                        <rect id="m-24c" class="seat" width="15" height="15" x="105" y="785" rx="3" ry="3"></rect>
-                        <rect id="m-24d" class="seat" width="15" height="15" x="140" y="785" rx="3" ry="3"></rect>
-                        <rect id="m-24e" class="seat" width="15" height="15" x="160" y="785" rx="3" ry="3"></rect>
-                        <rect id="m-24f" class="seat" width="15" height="15" x="180" y="785" rx="3" ry="3"></rect>
+                    <g id="row24">
+                        <text class="module__rowNumber" x="5" y="800">Row 24</text>
+                        <rect id="m-24a" class="module__seat" width="15" height="15" x="65" y="785" rx="3" ry="3">
+                        </rect>
+                        <rect id="m-24b" class="module__seat" width="15" height="15" x="85" y="785" rx="3" ry="3">
+                        </rect>
+                        <rect id="m-24c" class="module__seat" width="15" height="15" x="105" y="785" rx="3" ry="3">
+                        </rect>
+                        <rect id="m-24d" class="module__seat" width="15" height="15" x="140" y="785" rx="3" ry="3">
+                        </rect>
+                        <rect id="m-24e" class="module__seat" width="15" height="15" x="160" y="785" rx="3" ry="3">
+                        </rect>
+                        <rect id="m-24f" class="module__seat" width="15" height="15" x="180" y="785" rx="3" ry="3">
+                        </rect>
                     </g>
-                    <g id="row25" class="row25">
-                        <text class="row-number" x="5" y="830">Row 25</text>
-                        <rect id="m-25a" class="seat" width="15" height="15" x="65" y="815" rx="3" ry="3"></rect>
-                        <rect id="m-25b" class="seat" width="15" height="15" x="85" y="815" rx="3" ry="3"></rect>
-                        <rect id="m-25c" class="seat" width="15" height="15" x="105" y="815" rx="3" ry="3"></rect>
-                        <rect id="m-25d" class="seat" width="15" height="15" x="140" y="815" rx="3" ry="3"></rect>
-                        <rect id="m-25e" class="seat" width="15" height="15" x="160" y="815" rx="3" ry="3"></rect>
-                        <rect id="m-25f" class="seat" width="15" height="15" x="180" y="815" rx="3" ry="3"></rect>
+                    <g id="row25">
+                        <text class="module__rowNumber" x="5" y="830">Row 25</text>
+                        <rect id="m-25a" class="module__seat" width="15" height="15" x="65" y="815" rx="3" ry="3">
+                        </rect>
+                        <rect id="m-25b" class="module__seat" width="15" height="15" x="85" y="815" rx="3" ry="3">
+                        </rect>
+                        <rect id="m-25c" class="module__seat" width="15" height="15" x="105" y="815" rx="3" ry="3">
+                        </rect>
+                        <rect id="m-25d" class="module__seat" width="15" height="15" x="140" y="815" rx="3" ry="3">
+                        </rect>
+                        <rect id="m-25e" class="module__seat" width="15" height="15" x="160" y="815" rx="3" ry="3">
+                        </rect>
+                        <rect id="m-25f" class="module__seat" width="15" height="15" x="180" y="815" rx="3" ry="3">
+                        </rect>
                     </g>
-                    <g id="row26" class="row26">
-                        <text class="row-number" x="5" y="860">Row 26</text>
-                        <rect id="m-26a" class="seat" width="15" height="15" x="65" y="845" rx="3" ry="3"></rect>
-                        <rect id="m-26b" class="seat" width="15" height="15" x="85" y="845" rx="3" ry="3"></rect>
-                        <rect id="m-26c" class="seat" width="15" height="15" x="105" y="845" rx="3" ry="3"></rect>
-                        <rect id="m-26d" class="seat" width="15" height="15" x="140" y="845" rx="3" ry="3"></rect>
-                        <rect id="m-26e" class="seat" width="15" height="15" x="160" y="845" rx="3" ry="3"></rect>
-                        <rect id="m-26f" class="seat" width="15" height="15" x="180" y="845" rx="3" ry="3"></rect>
+                    <g id="row26">
+                        <text class="module__rowNumber" x="5" y="860">Row 26</text>
+                        <rect id="m-26a" class="module__seat" width="15" height="15" x="65" y="845" rx="3" ry="3">
+                        </rect>
+                        <rect id="m-26b" class="module__seat" width="15" height="15" x="85" y="845" rx="3" ry="3">
+                        </rect>
+                        <rect id="m-26c" class="module__seat" width="15" height="15" x="105" y="845" rx="3" ry="3">
+                        </rect>
+                        <rect id="m-26d" class="module__seat" width="15" height="15" x="140" y="845" rx="3" ry="3">
+                        </rect>
+                        <rect id="m-26e" class="module__seat" width="15" height="15" x="160" y="845" rx="3" ry="3">
+                        </rect>
+                        <rect id="m-26f" class="module__seat" width="15" height="15" x="180" y="845" rx="3" ry="3">
+                        </rect>
                     </g>
-                    <g id="row27" class="row27">
-                        <text class="row-number" x="5" y="890">Row 27</text>
-                        <rect id="m-27a" class="seat" width="15" height="15" x="65" y="875" rx="3" ry="3"></rect>
-                        <rect id="m-27b" class="seat" width="15" height="15" x="85" y="875" rx="3" ry="3"></rect>
-                        <rect id="m-27c" class="seat" width="15" height="15" x="105" y="875" rx="3" ry="3"></rect>
-                        <rect id="m-27d" class="seat" width="15" height="15" x="140" y="875" rx="3" ry="3"></rect>
-                        <rect id="m-27e" class="seat" width="15" height="15" x="160" y="875" rx="3" ry="3"></rect>
-                        <rect id="m-27f" class="seat" width="15" height="15" x="180" y="875" rx="3" ry="3"></rect>
+                    <g id="row27">
+                        <text class="module__rowNumber" x="5" y="890">Row 27</text>
+                        <rect id="m-27a" class="module__seat" width="15" height="15" x="65" y="875" rx="3" ry="3">
+                        </rect>
+                        <rect id="m-27b" class="module__seat" width="15" height="15" x="85" y="875" rx="3" ry="3">
+                        </rect>
+                        <rect id="m-27c" class="module__seat" width="15" height="15" x="105" y="875" rx="3" ry="3">
+                        </rect>
+                        <rect id="m-27d" class="module__seat" width="15" height="15" x="140" y="875" rx="3" ry="3">
+                        </rect>
+                        <rect id="m-27e" class="module__seat" width="15" height="15" x="160" y="875" rx="3" ry="3">
+                        </rect>
+                        <rect id="m-27f" class="module__seat" width="15" height="15" x="180" y="875" rx="3" ry="3">
+                        </rect>
                     </g>
-                    <g id="row28" class="row28">
-                        <text class="row-number" x="5" y="920">Row 28</text>
-                        <rect id="m-28a" class="seat" width="15" height="15" x="65" y="905" rx="3" ry="3"></rect>
-                        <rect id="m-28b" class="seat" width="15" height="15" x="85" y="905" rx="3" ry="3"></rect>
-                        <rect id="m-28c" class="seat" width="15" height="15" x="105" y="905" rx="3" ry="3"></rect>
-                        <rect id="m-28d" class="seat" width="15" height="15" x="140" y="905" rx="3" ry="3"></rect>
-                        <rect id="m-28e" class="seat" width="15" height="15" x="160" y="905" rx="3" ry="3"></rect>
-                        <rect id="m-28f" class="seat" width="15" height="15" x="180" y="905" rx="3" ry="3"></rect>
+                    <g id="row28">
+                        <text class="module__rowNumber" x="5" y="920">Row 28</text>
+                        <rect id="m-28a" class="module__seat" width="15" height="15" x="65" y="905" rx="3" ry="3">
+                        </rect>
+                        <rect id="m-28b" class="module__seat" width="15" height="15" x="85" y="905" rx="3" ry="3">
+                        </rect>
+                        <rect id="m-28c" class="module__seat" width="15" height="15" x="105" y="905" rx="3" ry="3">
+                        </rect>
+                        <rect id="m-28d" class="module__seat" width="15" height="15" x="140" y="905" rx="3" ry="3">
+                        </rect>
+                        <rect id="m-28e" class="module__seat" width="15" height="15" x="160" y="905" rx="3" ry="3">
+                        </rect>
+                        <rect id="m-28f" class="module__seat" width="15" height="15" x="180" y="905" rx="3" ry="3">
+                        </rect>
                     </g>
-                    <g id="row29" class="row29">
-                        <text class="row-number" x="5" y="950">Row 29</text>
-                        <rect id="m-29a" class="seat" width="15" height="15" x="65" y="935" rx="3" ry="3"></rect>
-                        <rect id="m-29b" class="seat" width="15" height="15" x="85" y="935" rx="3" ry="3"></rect>
-                        <rect id="m-29c" class="seat" width="15" height="15" x="105" y="935" rx="3" ry="3"></rect>
-                        <rect id="m-29d" class="seat" width="15" height="15" x="140" y="935" rx="3" ry="3"></rect>
-                        <rect id="m-29e" class="seat" width="15" height="15" x="160" y="935" rx="3" ry="3"></rect>
-                        <rect id="m-29f" class="seat" width="15" height="15" x="180" y="935" rx="3" ry="3"></rect>
+                    <g id="row29">
+                        <text class="module__rowNumber" x="5" y="950">Row 29</text>
+                        <rect id="m-29a" class="module__seat" width="15" height="15" x="65" y="935" rx="3" ry="3">
+                        </rect>
+                        <rect id="m-29b" class="module__seat" width="15" height="15" x="85" y="935" rx="3" ry="3">
+                        </rect>
+                        <rect id="m-29c" class="module__seat" width="15" height="15" x="105" y="935" rx="3" ry="3">
+                        </rect>
+                        <rect id="m-29d" class="module__seat" width="15" height="15" x="140" y="935" rx="3" ry="3">
+                        </rect>
+                        <rect id="m-29e" class="module__seat" width="15" height="15" x="160" y="935" rx="3" ry="3">
+                        </rect>
+                        <rect id="m-29f" class="module__seat" width="15" height="15" x="180" y="935" rx="3" ry="3">
+                        </rect>
                     </g>
-                    <g id="row30" class="row30">
-                        <text class="row-number" x="5" y="980">Row 30</text>
-                        <rect id="m-30a" class="seat" width="15" height="15" x="65" y="965" rx="3" ry="3"></rect>
-                        <rect id="m-30b" class="seat" width="15" height="15" x="85" y="965" rx="3" ry="3"></rect>
-                        <rect id="m-30c" class="seat" width="15" height="15" x="105" y="965" rx="3" ry="3"></rect>
-                        <rect id="m-30d" class="seat" width="15" height="15" x="140" y="965" rx="3" ry="3"></rect>
-                        <rect id="m-30e" class="seat" width="15" height="15" x="160" y="965" rx="3" ry="3"></rect>
-                        <rect id="m-30f" class="seat" width="15" height="15" x="180" y="965" rx="3" ry="3"></rect>
+                    <g id="row30">
+                        <text class="module__rowNumber" x="5" y="980">Row 30</text>
+                        <rect id="m-30a" class="module__seat" width="15" height="15" x="65" y="965" rx="3" ry="3">
+                        </rect>
+                        <rect id="m-30b" class="module__seat" width="15" height="15" x="85" y="965" rx="3" ry="3">
+                        </rect>
+                        <rect id="m-30c" class="module__seat" width="15" height="15" x="105" y="965" rx="3" ry="3">
+                        </rect>
+                        <rect id="m-30d" class="module__seat" width="15" height="15" x="140" y="965" rx="3" ry="3">
+                        </rect>
+                        <rect id="m-30e" class="module__seat" width="15" height="15" x="160" y="965" rx="3" ry="3">
+                        </rect>
+                        <rect id="m-30f" class="module__seat" width="15" height="15" x="180" y="965" rx="3" ry="3">
+                        </rect>
                     </g>
-                    <g class="exit">
+                    <g class="module__exit">
                         <polygon points="15,995 5,1005 15,1015"></polygon>
                         <text x="17" y="1010">Exit</text>
                     </g>
-                    <g class="plane-side">
+                    <g class="module__planeSide">
                         <polygon points="130,1038 65,1020 195,1020"></polygon>
                         <text x="116" y="1015">Rear</text>
                     </g>
-                    <g class="plane-type">
+                    <g class="module__planeType">
                         <text x="4" y="1075">Airbus A320</text>
                     </g>
                 </svg>
                 <hr />
-                <button id="reset-seats-id-m" onclick="resetSeats()">Resetuj wybór</button>
-                <button id="go-to-options-id-m" onclick="openOptions()">Zaakceptuj i przejdź dalej</button>
+                <button onclick="resetSeats()">Resetuj wybór</button>
+                <button onclick="openOptions()">Zaakceptuj i przejdź dalej</button>
                 <button id="return-to-search-id-m">Wróć do wyników wyszukiwania</button>
                 <button id="return-to-start-3-id">Rozpocznij od początku</button>
             </div>
@@ -687,27 +867,27 @@
         <!-- Wypełnienie prawego paska bocznego -->
         <aside>
             <h2>Podsumowanie</h2>
-            <p class="narrow sum" id="sump1">Lot z: <span id="sum1"></span></p>
-            <p class="narrow sum" id="sump2">Lot do: <span id="sum2"></span></p>
-            <p class="narrow sum" id="sump3">Liczba pasażerów: <span id="sum3"></span></p>
-            <p class="narrow sum" id="sump4">Lot powrotny: <span id="sum4"></span></p>
-            <p class="narrow sum" id="sump5">Dzień wylotu: <span id="sum5"></span></p>
-            <p class="narrow sum" id="sump6">Godzina wylotu: <span id="sum6"></span></p>
-            <p class="narrow sum" id="sump7">Godzina przylotu: <span id="sum7"></span></p>
-            <p class="narrow sum" id="sump8">Dzień lotu powrotnego: <span id="sum8"></span></p>
-            <p class="narrow sum" id="sump9">Godzina lotu powrotnego: <span id="sum9"></span></p>
-            <p class="narrow sum" id="sump10">Godzina powrotu: <span id="sum10"></span></p>
-            <p class="narrow sum" id="sump11">Czas lotu: <span id="sum11"></span></p>
-            <p class="narrow sum" id="sump12">Samolot: <span id="sum12"></span></p>
-            <p class="narrow sum" id="sump13">Cena podstawowa jednostkowa: <span id="sum13"></span></p>
-            <p class="narrow sum" id="sump14">Cena podstawowa łącznie: <span id="sum14"></span></p>
-            <p class="narrow sum" id="sump15">Wybrane miejsca: <span id="sum15"></span></p>
-            <p class="narrow sum" id="sump16">Liczba toreb kabinowych: <span id="sum16"></span></p>
-            <p class="narrow sum" id="sump17">Dopłata za dodatkowe torby kabinowe: <span id="sum17"></span></p>
-            <p class="narrow sum" id="sump18">Liczba bagaży rejestrowych: <span id="sum18"></span></p>
-            <p class="narrow sum" id="sump19">Dopłata za bagaż rejestrowy : <span id="sum19"></span></p>
+            <p class="__narrow" id="sump1">Lot z: <span id="sum1"></span></p>
+            <p class="__narrow" id="sump2">Lot do: <span id="sum2"></span></p>
+            <p class="__narrow" id="sump3">Liczba pasażerów: <span id="sum3"></span></p>
+            <p class="__narrow" id="sump4">Lot powrotny: <span id="sum4"></span></p>
+            <p class="__narrow" id="sump5">Dzień wylotu: <span id="sum5"></span></p>
+            <p class="__narrow" id="sump6">Godzina wylotu: <span id="sum6"></span></p>
+            <p class="__narrow" id="sump7">Godzina przylotu: <span id="sum7"></span></p>
+            <p class="__narrow" id="sump8">Dzień lotu powrotnego: <span id="sum8"></span></p>
+            <p class="__narrow" id="sump9">Godzina lotu powrotnego: <span id="sum9"></span></p>
+            <p class="__narrow" id="sump10">Godzina powrotu: <span id="sum10"></span></p>
+            <p class="__narrow" id="sump11">Czas lotu: <span id="sum11"></span></p>
+            <p class="__narrow" id="sump12">Samolot: <span id="sum12"></span></p>
+            <p class="__narrow" id="sump13">Cena podstawowa jednostkowa: <span id="sum13"></span></p>
+            <p class="__narrow" id="sump14">Cena podstawowa łącznie: <span id="sum14"></span></p>
+            <p class="__narrow" id="sump15">Wybrane miejsca: <span id="sum15"></span></p>
+            <p class="__narrow" id="sump16">Liczba toreb kabinowych: <span id="sum16"></span></p>
+            <p class="__narrow" id="sump17">Dopłata za dodatkowe torby kabinowe: <span id="sum17"></span></p>
+            <p class="__narrow" id="sump18">Liczba bagaży rejestrowych: <span id="sum18"></span></p>
+            <p class="__narrow" id="sump19">Dopłata za bagaż rejestrowy : <span id="sum19"></span></p>
             <hr>
-            <p class="sum" id="sump20">Cena łącznie: <span id="sum20"></span></p>
+            <p id="sump20">Cena łącznie: <span id="sum20"></span></p>
         </aside>
 
         <footer>Copyright&copy; by Marcin Karolewicz</footer>
