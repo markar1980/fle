@@ -1,9 +1,3 @@
-/*
-===============================================================================
-Skrypt przełączający możliwość wyboru daty lotu powrotnego. Funkcja uruchamiana
-przez wybór rodzaju lotu w oknie wyszukiwania
-===============================================================================
-*/
 function allowReturn(radio) {
   if (radio.value == "2") {
     returnDateVariable.disabled = true;
@@ -11,7 +5,7 @@ function allowReturn(radio) {
     returnDateVariable.disabled = false;
   }
 }
-/* Kod uniemożliwiający wybór miejsca tożsamego*/
+
 function blockFligthSelect(removeWhat, removeFrom) {
   let len = removeFrom.options.length;
   for (let i = 0; i < len; i++) {
@@ -27,24 +21,11 @@ function blockFligthSelect(removeWhat, removeFrom) {
   flightToVariable.disabled = false;
 }
 
-/*
-===============================================================================
-Poniższy kod ustawia początkową datę minimalną i maksymalną dla inputów 
-leavind-date oraz return-date. Celem jest uniemożliwienie wyboru wcześniejszego
-dnia lotu niż dzień dzisiejszy i późniejszego niż za rok od dzisiaj 
-(zgodnie z wytycznymi projektu).
-===============================================================================
-*/
 const todayISO = new Date(Date.now() - (new Date()).getTimezoneOffset() * 60000).toISOString().split("T")[0];
 const tomorrow = new Date(Date.now() - (new Date()).getTimezoneOffset() * 60000);
-//powyżej uwzględniono czas lokalny; można uwzględnić UTC co skróci kod do: „var todayISO = new Date().toISOString().split("T")[0];” i „var tomorrow = new Date();”
-//getTimezoneOffset() zwraca różnicę stref czasowych w minutach - mnożenie przez 60000 w celu wyrażenia w milisekundach
-//toISOString zwraca datę jako string w standardzie ISO-8601: YYYY-MM-DDTHH:mm:ss.sssZ a następie spli("T")[0] wyciąga samą datę dzienną bez godziny
 const year = new Date(Date.now() - (new Date()).getTimezoneOffset() * 60000);
 tomorrow.setDate(tomorrow.getDate() + 1);
-//wyciągamy dzień miesiąca z początkowej wartości tommorow i dodajemy jeden dzień
 year.setDate(year.getDate() + 365);
-//wyciągamy dzień miesiąca z początkowej wartości year i dodajemy 365 dni
 const tomorrowISO = tomorrow.toISOString().split("T")[0];
 const yearISO = year.toISOString().split("T")[0];
 leavingDateVariable.min = todayISO;
@@ -53,14 +34,6 @@ returnDateVariable.min = tomorrowISO;
 returnDateVariable.max = yearISO;
 leavingDateVariable.addEventListener('change', setMinReturn);
 
-/*
-===============================================================================
-System rezerwacji zakłada, że lot powrotny nastąpi najwcześniej następnego dnia
-po dniu lotu w tamtą stronę.
-Poniższa funkcja ustawia minimalną return-date na dzień po wybranej leaving-date.
-Funckja jest wywoływana zmianą pola leaving-date w oknie wyszukiwania
-===============================================================================
-*/
 function setMinReturn() {
   var leavingDate = leavingDateVariable.valueAsDate;
   if (leavingDate != null) {
@@ -68,29 +41,17 @@ function setMinReturn() {
     returnDate.setDate(leavingDate.getDate() + 1);
     returnDateVariable.min = returnDate.toISOString().split("T")[0];
     if (leavingDateVariable.valueAsDate != null && returnDateVariable.valueAsDate != null) {
-      checkFlightDate() ? true /*alert('ok')*/ : alert('Data powrotu nie może być wcześniejasz lub równa dacie lotu docelowego');
+      checkFlightDate() ? true : alert('Data powrotu nie może być wcześniejasz lub równa dacie lotu docelowego');
     }
   } else {
     returnDateVariable.min = tomorrowISO;
   }
 }
 
-/*
-===============================================================================
-Funkcja sprawdza czy data powrotna nie jest wcześniejsza niż data lotu w tamtą 
-stronę i przypisuje wartość zmiennej tak/nie
-===============================================================================
-*/
 function checkFlightDate() {
   var returnDate = returnDateVariable;
   return ((returnDate.valueAsDate.toISOString().split("T")[0] < returnDate.min) ? false : true);
 }
-
-/*
-===============================================================================
-Funkcje uniemożliwiające ręczne wpisanie dat przeszłych
-===============================================================================
-*/
 
 leavingDateVariable.addEventListener('blur', changeDateOne);
 
@@ -112,14 +73,6 @@ function changeDateTwo() {
   }
 }
 
-/*
-===============================================================================
-Funckja która uruchamia skrypt wczytania JSON - loadFlightData(), w zależności od
-podania kompletu danych. Jeśli lot jest w jedną stronę trzy pola muszą być pełne,
-jeśli lot jest w dwie strony, cztery pola muszą być pełne.
-Ponadto pola miejsca startu oraz miejsca docelowego nie mogą być tożsame.
-===============================================================================
-*/
 document.getElementById("search-button").onclick = allowSearch;
 
 function allowSearch() {
@@ -152,7 +105,6 @@ function allowSearch() {
   else { window.alert("Proszę wypełnić prawidłowo wszystkie wymagane pola wyszukiwania"); }
 }
 
-//funkcja wczytująca json i przekazująca obiekt jsonFlights do funkcji wyszukiwania
 function loadFlightData() {
   const url = "https://raw.githubusercontent.com/markar1980/fle/master/JSON/dataJSON.json";
   fetch(url)
@@ -161,28 +113,8 @@ function loadFlightData() {
     .catch(err => console.error(err));
 }
 
-/*
-===============================================================================
-Funkcja wyszukiwania
-
-Skrypt uruchamiający wyszukiwanie po wciśnięciu klawisza "szukaj" jeśli 
-spełnione są warunki funkcji allowSearch.
-
-W następstwie wywołania funkcji zostają utworzone obiekty:
-- searchResult() - zawsze
-- returnResult() - tylko w sytuacji jeśli wyszukiwany jest lot w dwie strony
-Obiekty zawierają podstawowe dane dotyczace lotów, wykorzystywane w kolejnych 
-partiach kodu, takie jak:
-miejsce wylotu, miejsce docelowe, dzień lotu, czas lotu, godziny startu 
-i lądowania, liczbę pasażerów, cenę podstawową, cenę dodatkowego bagażu 
-kabinowego, cenę bagażu rejestrowego, rodzaj samolotu.
-
-Część danych zwracana jest następnie na stronie wyników wyszukiwania
-===============================================================================
-*/
 function searchFlight(jsonFlights) {
   const returnFlight = returnVariable.checked;
-  /*zmienna sprawdzająca czy lot jest powrotny - jeśli tak będzie true, w przeciwnym wypadku false*/
   if (returnFlight == true) {
     searchWinVar.style.display = "none";
     searchRstWrapVar.style.display = "inline-block";
@@ -193,15 +125,11 @@ function searchFlight(jsonFlights) {
     searchRstWrapVar.style.display = "inline-block";
     returnRstWrapVar.style.display = "none";
   }
-  /*Poniższy fragment kodu tworzy zmienne na podstawie informacji podanych w formularzu wyszukiwania */
   const flightFrom = flightFromVariable.value;
   const flightTo = flightToVariable.value;
   var leavingDate = leavingDateVariable.value;
   var returnDate = returnDateVariable.value;
   const numberPassengers = numbPassVar.value;
-  /*W pliku JSON zawierającym obiekty określające warianty lotów zostaje wyszukany 
-  lot który spełnia zarówno warunek miejsca startowego i miejsca docelotwego dla lotu w jedną stronę, 
-  a następnie obiekt searchResult{} zostaje wypełniony elementami*/
   for (let i = 0; i < jsonFlights.length; i++) {
     if (
       (flightFrom == jsonFlights[i].start) &&
@@ -221,27 +149,8 @@ function searchFlight(jsonFlights) {
         plane: jsonFlights[i].plane
       }
     }
-    // document.getElementById("sum1").innerHTML = searchResult.from;
-    // document.getElementById("sum2").innerHTML = searchResult.to;
-    // document.getElementById("sum3").innerHTML = searchResult.passengers;
-    // document.getElementById("sum4").innerHTML = returnFlight ? "tak" : "nie";
-    // document.getElementById("sum5").innerHTML = searchResult.day;
-    // document.getElementById("sum6").innerHTML = searchResult.start;
-    // document.getElementById("sum7").innerHTML = searchResult.end;
-    // document.getElementById("sum11").innerHTML = searchResult.time;
-    // document.getElementById("sum12").innerHTML = searchResult.plane;
-    // document.getElementById("sum13").innerHTML = searchResult.price + ",00 zł";
-    // document.getElementById("sum14").innerHTML = (searchResult.price * searchResult.passengers + ",00 zł");
-    // document.getElementById("sum16").innerHTML = 0;
-    // document.getElementById("sum17").innerHTML = 0 + ",00 zł";
-    // document.getElementById("sum18").innerHTML = 0;
-    // document.getElementById("sum19").innerHTML = 0 + ",00 zł";
-    // document.getElementById("sum20").innerHTML = (searchResult.price * searchResult.passengers + ",00 zł");
   }
 
-  console.log(searchResult);
-
-  /*Poniżsyz kod wypełnia kafelki z wynikami wyszukiwania lotu*/
   document.getElementById("flight-to-starting-place-id").innerText = searchResult.from;
   document.getElementById("flight-to-destination-id").innerText = searchResult.to;
   document.getElementById("flight-to-day-date-id").innerText = searchResult.day;
@@ -253,16 +162,8 @@ function searchFlight(jsonFlights) {
   document.getElementById("flight-to-bag1-id").innerText = searchResult.bag1;
   document.getElementById("flight-to-bag2-id").innerText = searchResult.bag2;
 
-  /*zmienna teczhniczna - utworzona na potrzeby debugowania*/
-  const planeType = searchResult.plane;
-  console.log("Rodzaj samolotu to: " + planeType);
-
   if (returnFlight == true) {
-    /*Utworzony zostaje obiekt z wynikami wyszukiwania lotu powrotnego*/
     returnResult = {};
-    /*W pliku JSON zawierającym obiekty określające warianty lotów zostaje wyszukany 
-lot który spełnia zarówno warunek miejsca startowego i miejsca docelotwego dla lotu powrotnego, 
-a następnie obiekt returnResult{} zostaje wypełniony elementami*/
     for (let j = 0; j < jsonFlights.length; j++) {
       if (
         (flightTo == jsonFlights[j].start) &&
@@ -281,9 +182,7 @@ a następnie obiekt returnResult{} zostaje wypełniony elementami*/
           bag2: jsonFlights[j].registerPrice,
           plane: jsonFlights[j].plane
         }
-        console.log(returnResult);
 
-        /*Poniżsyz kod wypełnia kafelki z wynikami wyszukiwania lotu powrotnego*/
         document.getElementById("return-flight-starting-place-id").innerText = returnResult.from;
         document.getElementById("return-flight-destination-id").innerText = returnResult.to;
         document.getElementById("return-flight-day-date-id").innerText = returnResult.day;
@@ -296,45 +195,31 @@ a następnie obiekt returnResult{} zostaje wypełniony elementami*/
         document.getElementById("return-flight-bag2-id").innerText = returnResult.bag2;
       }
     }
-    // document.getElementById("sum8").innerHTML = returnResult.day;
-    // document.getElementById("sum9").innerHTML = returnResult.start;
-    // document.getElementById("sum10").innerHTML = returnResult.end;
-    // document.getElementById("sum14").innerHTML = (searchResult.price * 2 * searchResult.passengers + ",00 zł");
-    // document.getElementById("sum20").innerHTML = (searchResult.price * 2 * searchResult.passengers + ",00 zł");
   }
   sumValueArray.push(searchResult.from, searchResult.to, searchResult.passengers, returnFlight ? "tak" : "nie", searchResult.day, searchResult.start, searchResult.end,
     returnFlight ? returnResult.day : "", returnFlight ? returnResult.start : "", returnFlight ? returnResult.end : "", searchResult.time, searchResult.plane, (searchResult.price + ",00 zł"), returnFlight ? (searchResult.price * 2 * searchResult.passengers + ",00 zł") : (searchResult.price * searchResult.passengers + ",00 zł"), "", 0, (0 + ",00 zł"), 0, (0 + ",00 zł"), returnFlight ? (searchResult.price * 2 * searchResult.passengers + ",00 zł") : (searchResult.price * searchResult.passengers + ",00 zł"))
   displaySum();
 }
-//Funkcja wyświetlająca sumę
+
 function displaySum() {
-  console.log(sumValueArray);
   for (let p = 0; p < sumValueArray.length; p++) {
     document.getElementById("sum" + (p + 1)).innerHTML = sumValueArray[p];
   }
 }
 
-//funkcja czyszcząca sumę
 function clearSum() {
   sumValueArray = [];
-  console.log(sumValueArray);
   for (let i = 1; i <= 20; i++) {
     document.getElementById("sum" + i).innerHTML = "";
   }
-
 }
 
-/*
-===============================================================================
-Skrypt powodujący powrót do okna wyszukiwania
-===============================================================================
-*/
 document.getElementById("return-to-search-id").addEventListener("click", returnToSearch);
 
 function returnToSearch() {
   searchResult = {};
   returnResult = {};
-  optionArray = [];//Uwaga 8
+  optionArray = [];
   searchWinVar.style.display = "block";
   searchRstWrapVar.style.display = "none";
   logWinVar.style.display = "none";
@@ -343,37 +228,12 @@ function returnToSearch() {
   optionsVar.style.display = "none";
   finalSumVar.style.display = "none";
   finishVar.style.display = "none";
-  resetSeats(); //to zostawić
+  resetSeats();
   clearSum();
-  //Uwaga 8
-  // document.getElementById("sum1").innerHTML = "";
-  // document.getElementById("sum2").innerHTML = "";
-  // document.getElementById("sum3").innerHTML = "";
-  // document.getElementById("sum4").innerHTML = "";
-  // document.getElementById("sum5").innerHTML = "";
-  // document.getElementById("sum6").innerHTML = "";
-  // document.getElementById("sum7").innerHTML = "";
-  // document.getElementById("sum8").innerHTML = "";
-  // document.getElementById("sum9").innerHTML = "";
-  // document.getElementById("sum10").innerHTML = "";
-  // document.getElementById("sum11").innerHTML = "";
-  // document.getElementById("sum12").innerHTML = "";
-  // document.getElementById("sum13").innerHTML = "";
-  // document.getElementById("sum14").innerHTML = "";
-  // document.getElementById("sum16").innerHTML = "";
-  // document.getElementById("sum17").innerHTML = "";
-  // document.getElementById("sum18").innerHTML = "";
-  // document.getElementById("sum19").innerHTML = "";
-  // document.getElementById("sum20").innerHTML = "";
   removeChildren(passOptVar);
   removeChildren(finalSumPassVar);
 }
 
-/*
-===============================================================================
-Skrypt powodujący przejście do okna logowania
-===============================================================================
-*/
 document.getElementById("go-to-login-id").addEventListener("click", goToLogin);
 
 function goToLogin() {
@@ -386,14 +246,8 @@ function goToLogin() {
   }
 };
 
-/*
-===============================================================================
-Skrypt logowania
-===============================================================================
-*/
 document.getElementById("log-button-id").onclick = loadUsersData;
 
-//funkcja wczytująca plik json i przekazująca obiekt jsonLogin do funkcji logowania
 function loadUsersData() {
   const url = "https://raw.githubusercontent.com/markar1980/fle/master/JSON/dataJSON.json";
   fetch(url)
@@ -401,9 +255,6 @@ function loadUsersData() {
     .then(data => logIn(data.jsonLogin))
     .catch(err => console.error(err));
 }
-
-// var timeout;
-// var intervalLog;
 
 function logIn(jsonLogin) {
   for (let i = 0; i < jsonLogin.length; i++) {
@@ -416,13 +267,11 @@ function logIn(jsonLogin) {
         surname: jsonLogin[i].surname,
         email: jsonLogin[i].email
       };
-      console.log(loginObject);
       loggedIn = true;
-      console.log("Zalogowany: " + loggedIn);
       logWinVar.style.display = "none";
       logoutButtonVar.style.display = "block";
-      openSeatMap();//uruchamia funkcję wyboru mapy siedzeń w zależności od rodzaju samolotu
-      setupTimers(); //uruchamia timer        
+      openSeatMap();
+      setupTimers();
     } else {
       window.alert("Proszę wprowadzić prawidłowe dane logowania");
     }
@@ -439,7 +288,6 @@ function logOut(isIdle) {
   if (isIdle) {
     window.alert("Zostałeś wylogowany z powodu bezczynności");
   }
-  console.log("Zalogowany: " + loggedIn);
 }
 
 function startTimer() {
@@ -447,20 +295,15 @@ function startTimer() {
   intervalLog = setInterval(logoutTimer, 1000);
 }
 
-// timer
 function logoutTimer() {
   var minutes = Math.floor((timeout % (1000 * 60 * 60)) / (1000 * 60));
   var seconds = Math.floor((timeout % (1000 * 60)) / 1000);
-  //metoda Math.floor zaokrągla wartość do najniższej wartości całkowitej
-  //Sposób liczenia zmiennych w przypadku zmiany wartości timeout jest automatycznie przeliczany na minuty i sekundy
   minutes = checkTime(minutes);
   seconds = checkTime(seconds);
   timerVar.innerHTML = minutes + ":" + seconds;
   (timeout < 0) ? logOut(true) : timeout -= 1000;
-  //w sytuacji kiedy timeout dojdzie do zera uruchamia funkcję wylogowania w przeciwnym wypadku pomniejsza wartośći co sekundę.
 }
 
-//timer reset
 function resetTimer() {
   if (loggedIn) {
     clearInterval(intervalLog);
@@ -468,26 +311,15 @@ function resetTimer() {
   }
 }
 
-//Poniższy skrypt resetuje timer po kliknięciu, można rozszerzyć opcje resetowania
 function setupTimers() {
-  // document.addEventListener("mousemove", resetTimer, false);
   document.addEventListener("mousedown", resetTimer, false);
-  // document.addEventListener("keypress", resetTimer, false);
-  // document.addEventListener("touchmove", resetTimer, false);
-  // document.addEventListener("onscroll", resetTimer, false);
   startTimer();
 }
 
-// dodaje 0 przed sekundą / minutą
 function checkTime(i) {
   return (i < 10 ? i = "0" + i : i);
 }
 
-/*
-===============================================================================
-Skrypt wylogowania z przycisku
-===============================================================================
-*/
 function logOutButton() {
   const acpt = confirm("Czy na pewno chcesz się wylogować?");
   if (acpt == true) {
@@ -495,11 +327,6 @@ function logOutButton() {
   }
 }
 
-/*
-===============================================================================
-Skrypt powodujący podwót do okna z wynikami wyszukiwania
-===============================================================================
-*/
 document.getElementById("returng-to-search-id-log").onclick = returnToResults;
 
 function returnToResults() {
@@ -507,19 +334,8 @@ function returnToResults() {
   logWinVar.style.display = "none";
 }
 
-/*
-===============================================================================
-Skrypt powodujący przejście z okna logowania do początku
-===============================================================================
-*/
 document.getElementById("return-to-start-1-id").onclick = returnToSearch;
 
-/*
-===============================================================================
-Skrypt uruchamiający odpowiednie okno wyboru miejsca w samolocie w zależności
-od rodzaju samolotu na danej trasie
-===============================================================================
-*/
 function openSeatMap() {
   if (searchResult.plane == "ATR 42-600") {
     smAtrVar.style.display = "block"
@@ -529,11 +345,6 @@ function openSeatMap() {
   }
 }
 
-/*
-===============================================================================
-Skrypt wyboru miejsca do siedzenia z mapy siedzeń
-===============================================================================
-*/
 const seatArray = document.getElementsByClassName("module__seat");
 
 for (let i = 0; i < seatArray.length; i++) {
@@ -541,17 +352,14 @@ for (let i = 0; i < seatArray.length; i++) {
 }
 
 var seats = [];
-//tworzymy zmienną - tablicę, która bedzie wypełniana wybranymi numerami siedzeń
 var seatsDisplay = [];
-//tworzymy zmienną dla tablicy, która będzie zawierała nr siedzeń do wyświetlenia
 var seatsSorted = [];
-//tworzymy zmienną - tablicę, która bedzie wypełniana posortowanymi numerami siedzeń do wyświetlenia
 
 function chooseSeat() {
   if (seats.length < numbPassVar.value) {
     var chooseSeatId = this.id;
     if (seats.indexOf(chooseSeatId) == -1) {
-      var seatIdFragment = chooseSeatId.slice(2)//wycianmy tylko fragment ID, który checmy wyświetlić
+      var seatIdFragment = chooseSeatId.slice(2)
       seats.push(chooseSeatId);
       seatsDisplay.push(seatIdFragment);
       seatsSorted = seatsDisplay.sort();
@@ -562,11 +370,6 @@ function chooseSeat() {
   else { window.alert("Wybrałeś już maksymalną ilość miejsc") }
 }
 
-/*
-===============================================================================
-Funkcja zmieniająca kolor siedzenia po jego wyborze
-===============================================================================
-*/
 function changeColor() {
   for (let i = 0; i < seats.length; i++) {
     let changeColorId = document.getElementById(seats[i]);
@@ -574,11 +377,6 @@ function changeColor() {
   }
 }
 
-/*
-===============================================================================
-Funkcja restartująca wybór siedzeń
-===============================================================================
-*/
 function resetSeats() {
   for (let i = 0; i < seats.length; i++) {
     let changeColorId = document.getElementById(seats[i]);
@@ -586,16 +384,9 @@ function resetSeats() {
   }
   seats = [];
   seatsDisplay = [];
-  console.log(seats);
   document.getElementById("sum15").innerHTML = "";
 }
 
-/*
-===============================================================================
-Skrypt powodujący powrót do okna z wynikami wyszukiwania
-Samolot mały
-===============================================================================
-*/
 document.getElementById("return-to-search-id-s").onclick = returnToResults2;
 
 function returnToResults2() {
@@ -604,12 +395,6 @@ function returnToResults2() {
   resetSeats();
 }
 
-/*
-===============================================================================
-Skrypt powodujący powrót do okna z wynikami wyszukiwania
-Samolot duży
-===============================================================================
-*/
 document.getElementById("return-to-search-id-m").onclick = returnToResults3;
 
 function returnToResults3() {
@@ -619,29 +404,9 @@ function returnToResults3() {
   resetSeats()
 }
 
-/*
-===============================================================================
-Skrypt powodujący przejście z okna wyboru miesjca do siedzania do początku
-Samolot mały
-===============================================================================
-*/
 document.getElementById("return-to-start-2-id").onclick = returnToSearch;
-
-/*
-===============================================================================
-Skrypt powodujący przejście z okna wyboru miesjca do siedzania do początku
-Samolot duży
-===============================================================================
-*/
 document.getElementById("return-to-start-3-id").onclick = returnToSearch;
 
-/*
-===============================================================================
-Funkja sprawdza czy wybrano siedzenia i jeżeli tak to uruchamia funckję
-createPassengersDisplay która generuje tyle okien formularza dla opcji pasażerów
-ilu jest pasażerów
-===============================================================================
-*/
 function openOptions() {
   if (seats.length == searchResult.passengers) {
     smAtrVar.style.display = "none";
@@ -652,21 +417,14 @@ function openOptions() {
   else (window.alert("Proszę wybrać komplet miejsc"));
 }
 
-/*
-===============================================================================
-Funkcja tworzącą odpowiednią ilośc okien wyboru opcji w zależności od 
-liczby pasażerów - patrz też funckja openOptions()
-===============================================================================
-*/
 function createPassengersDisplay(passNum) {
   let fragment = new DocumentFragment();
-  let passOptionsId = passOptVar; //id generowanego formularza
+  let passOptionsId = passOptVar;
 
   for (let i = 1; i <= seats.length; i++) {
     let container = document.createElement('div');
     container.setAttribute('class', 'passenger-div-' + i);
     container.setAttribute('id', 'passenger-div-' + i + '-id');
-    //tworzymy tyle containerów na opcje dodatkowe ilu jest pasażerów
 
     let header1 = document.createElement("h3");
     header1.setAttribute('class', 'passenger-' + i);
@@ -722,7 +480,6 @@ function createPassengersDisplay(passNum) {
     container.appendChild(label3);
     container.appendChild(input3);
     input3.onclick = (event) => cabinbagChange(event.target);
-    //alternatywnie function (event){return cabinbagChange(event.target);}
     container.appendChild(document.createElement("br"));
     container.appendChild(label4);
     container.appendChild(input4);
@@ -733,32 +490,16 @@ function createPassengersDisplay(passNum) {
   passOptionsId.appendChild(fragment);
 }
 
-/*
-===============================================================================
-Funkcja removeChildren po jej wywołaniu odłącza dzieci od poszczególnych
-wygenerowanych nodów - w przypadku nawigacji po systemie eliminuje to wielokrotne
-genereowanie i dodawanie zbyt duże ilości pól
-===============================================================================
-*/
 function removeChildren(parentNode) {
   while (parentNode.firstChild) {
     parentNode.removeChild(parentNode.firstChild);
   }
 }
 
-/*
-===============================================================================
-Funkcja wyboru i zliczania ilości wykupionych dodatkowych toreb kabinowych
-===============================================================================
-*/
 function cabinbagChange(checkbox) {
   var cabinbagNumSpan = document.getElementById('sum16').innerHTML;
   var cabinbagNum = isNaN(parseInt(cabinbagNumSpan)) ? 0 : parseInt(cabinbagNumSpan);
-  //jeżeli wartość w sum16 nie jest liczbą konieczne jest przypisanie wartości 0; jeśli jest liczba to parsuje do części całkowitej; eliminuje błąd w przypadku pustego stringa
-
   checkbox.checked ? cabinbagNum++ : cabinbagNum--;
-
-  // jeżeli lot powrotny to mnoży razy dwa dopłatę za dodatkowe torby
   if (returnVariable.checked) {
     document.getElementById('sum16').innerHTML = cabinbagNum;
     document.getElementById('sum17').innerHTML = 2 * cabinbagNum * searchResult.bag1 + ",00 zł";
@@ -770,18 +511,11 @@ function cabinbagChange(checkbox) {
   }
 }
 
-/*
-===============================================================================
-Funkcja wyboru i zliczania ilości wykupionych bagaży rejestrowych
-===============================================================================
-*/
 function registerChange(checkbox) {
   var registerNumSpan = document.getElementById('sum18').innerHTML;
   var registerNum = isNaN(parseInt(registerNumSpan)) ? 0 : parseInt(registerNumSpan);
 
   checkbox.checked ? registerNum++ : registerNum--;
-
-  // jeżeli lot powrotny to mnoży razy dwa dopłatę za dodatkowe torby
   if (returnVariable.checked) {
     document.getElementById('sum18').innerHTML = registerNum;
     document.getElementById('sum19').innerHTML = 2 * registerNum * searchResult.bag2 + ",00 zł";
@@ -793,12 +527,6 @@ function registerChange(checkbox) {
   }
 }
 
-/*
-===============================================================================
-Funkja sprawdza czy imiona i nazwiska pasażerów są podane - patrz też funkcja
-goToSummary()
-===============================================================================
-*/
 function validatePassengersData(passNum) {
   var msg = "";
   for (let i = 1; i <= passNum; i++) {
@@ -814,13 +542,7 @@ function validatePassengersData(passNum) {
   return msg;
 }
 
-/*
-===============================================================================
-Funkja tworzy tablicę pasażerów
-===============================================================================
-*/
 var optionArray = [];
-// Tworzymy pustą tablicę pasażerów
 
 function createPassengersArray(passNum) {
   for (let i = 1; i <= passNum; i++) {
@@ -833,21 +555,12 @@ function createPassengersArray(passNum) {
     passenger.seat = seatsSorted[i - 1];
     optionArray.push(passenger);
   }
-  console.log("Tablica pasażerów optionArray: " + optionArray);
 }
 
-/*
-===============================================================================
-Funkja przejścia z ekranu opcji do ostatecznego podsumowania
-===============================================================================
-*/
 function goToSummary() {
   var msg = "";
-  //sprawdzany czy imię i nazwisko jest podane dla każdego pasażera
   msg = validatePassengersData(seats.length);
-
   if (msg == "") {
-    //uzupełniamy tablicę pasażerów danymi jeżeli validacja nie zwróciła informacji o błędach (msg jest puste)
     createPassengersArray(seats.length);
     optionsVar.style.display = "none";
     finalSumVar.style.display = "block";
@@ -857,11 +570,6 @@ function goToSummary() {
   }
 }
 
-/*
-===============================================================================
-Funkja wyświetlająca ostateczne podsumowanie
-===============================================================================
-*/
 function finalSummaryDisplay() {
   let sumContainer = document.getElementById('final-summary-pass-output');
   let fragment = new DocumentFragment();
@@ -922,11 +630,6 @@ function finalSummaryDisplay() {
   sumContainer.appendChild(fragment);
 }
 
-/*
-===============================================================================
-Funkja powrotu z ekranu opcji do okna wyboru miejsca w samolocie
-===============================================================================
-*/
 function returnToChooseSeat() {
   optionsVar.style.display = "none";
   if (searchResult.plane == "ATR 42-600") {
@@ -944,18 +647,7 @@ function returnToChooseSeat() {
   removeChildren(passOptVar);
 }
 
-/*
-===============================================================================
-Funkja powrotu z okna podsumowania do początku
-===============================================================================
-*/
 document.getElementById("return-to-start-4-id").onclick = returnToSearch;
-
-/*
-===============================================================================
-Funkja przejścia z okna podstumowania końcowego do okna końcowego
-===============================================================================
-*/
 document.getElementById("finish-button-id").onclick = goToFinish;
 
 function goToFinish() {
@@ -963,11 +655,6 @@ function goToFinish() {
   finalSumVar.style.display = "none";
 }
 
-/*
-===============================================================================
-Funkja przejścia z okna podsumowania końcowego do okna opcji
-===============================================================================
-*/
 document.getElementById("return-to-options").onclick = returnToOptions;
 
 function returnToOptions() {
@@ -977,16 +664,5 @@ function returnToOptions() {
   removeChildren(finalSumPassVar);
 }
 
-/*
-===============================================================================
-Funkja powrotu z okna podsumowania do początku
-===============================================================================
-*/
 document.getElementById("return-to-start-5-id").onclick = returnToSearch;
-
-/*
-===============================================================================
-Funkja powrotu z okna końcowych podziękowań do początku
-===============================================================================
-*/
 document.getElementById("return-to-start-6-id").onclick = returnToSearch;

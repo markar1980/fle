@@ -79,7 +79,7 @@ header {
   border-radius: 7px;
   grid-column: 1 / 13;
   grid-row: 1;
-  height: 120px;
+  min-height: 130px;
 }
 
 nav {

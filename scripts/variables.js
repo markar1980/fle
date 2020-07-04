@@ -1,13 +1,7 @@
-/*
-===============================================================================
-Tworzenie zmiennych globalnych
-===============================================================================
-*/
-
-var searchResult = {}; //zmienna na wyniki wyszukiwania
-var returnResult = {}; //zmienna na wyniki wyszukiwania lotu powrotnego
-var loginObject = {} //zmienna na dane logowania
-var loggedIn = false; //zmienna wskazująca czy jesteśmy zalogowani - domyślnie nie
+var searchResult = {};
+var returnResult = {};
+var loginObject = {}
+var loggedIn = false;
 var timeout;
 var intervalLog;
 var sumElementArray = [];
@@ -31,6 +25,5 @@ const optionsVar = document.getElementById("options-id");
 const finalSumVar = document.getElementById("final-summary-id");
 const finishVar = document.getElementById("finish-id");
 const timerVar = document.getElementById("timer");
-
 const passOptVar = document.getElementById("pass-options-id");
 const finalSumPassVar = document.getElementById("final-summary-pass-output");
