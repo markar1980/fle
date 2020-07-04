@@ -27,7 +27,6 @@
 
         <article>
 
-            <!-- Okno wyszukiwania lotu -->
             <div class="module" id="search-window-id">
                 <h2>Szukaj lotu</h2>
                 <hr>
@@ -99,15 +98,11 @@
                 <button type="button" id="search-button">Szukaj</button>
             </div>
 
-            <!-- Okno wyników wyszukiwania -->
-
             <div class="module" id="search-result-wrapper-id" style="display: none;">
                 <h2>Wyniki wyszukiwania</h2>
                 <hr>
-                <!--Część zawierający wyniki lotu "tam"-->
                 <div>
                     <h3>Lot do</h3>
-                    <!--Div z kafelkami wyników - lot tam-->
                     <div class="tiles">
                         <h6>Miejsce wylotu</h6>
                         <p id="flight-to-starting-place-id"></p>
@@ -143,10 +138,8 @@
                     <h5>Cena bagażu rejestrowego: <span id="flight-to-bag2-id"></span> PLN za pasażera.</h5>
                 </div>
                 <hr>
-                <!--Część zawierający wyniki lotu powrotnego-->
                 <div id="return-flight-result-wrapper-id">
                     <h4>Lot powrotny</h4>
-                    <!--Div z kafelkami wyników - lot powrotny-->
                     <div class="tiles">
                         <h6>Miejsce wylotu</h6>
                         <p id="return-flight-starting-place-id"></p>
@@ -187,11 +180,9 @@
                 <button id="return-to-search-id">Wróć do okna wyszukiwania</button>
             </div>
 
-            <!-- Okno logowania -->
             <div class="module" id="login-window-id" style="display: none;">
                 <h2>Logowanie </h2>
                 <hr />
-                <!-- Formularz logowania -->
                 <form id="login-form-id">
                     <lebel for="username-id">Nazwa użytkownika</lebel><br />
                     <input type="text" name="username" id="username-id"><br />
@@ -204,11 +195,9 @@
                 </form>
             </div>
 
-            <!--Div zawierający mapę siedzeń - samolot mały -->
             <div class="module" id="seat-map-ATR-id" style="display: none;">
                 <h2>Wybierz miejsca</h2>
                 <hr>
-                <!--Układ samolotu-->
                 <svg class="module__seatSVG" id="seat-map-ATR-svg-id" width="300" height="515">
                     <g class="module__planeSide">
                         <polygon points="110,2 65,20 155,20"></polygon>
@@ -353,11 +342,9 @@
                 <button id="return-to-start-2-id">Rozpocznij od początku</button>
             </div>
 
-            <!--Div zawierający mapę siedzeń - samolot duży -->
             <div class="module" id="seat-map-airbus-id" style="display: none;">
                 <h2>Wybierz miejsca</h2>
                 <hr />
-                <!--Układ samolotu-->
                 <svg class="module__seatSVG" width="300" height="1090">
                     <g class="module__planeSide">
                         <polygon points="130,2 65,20 195,20"></polygon>
@@ -826,11 +813,9 @@
                 <button id="return-to-start-3-id">Rozpocznij od początku</button>
             </div>
 
-            <!--Div obejmujący wybór opcji lotu-->
             <div class="module" id="options-id" style="display: none">
                 <h2>Dane podróżnych i opcje dodatkowe</h2>
                 <hr />
-                <!-- Dane i opcje dla pasażerów - formularz jest generowany przez skrypt -->
                 <form id="pass-options-id">
                 </form>
                 <button id="go-to-summary-id" onclick="goToSummary()">Przejdź do ostatecznego podsumowania</button>
@@ -838,7 +823,6 @@
                 <button id="return-to-start-4-id">Rozpocznij od początku</button>
             </div>
 
-            <!-- Div zawierający podsumowanie końcowe - część informacji jest generowana przez skrypt -->
             <div class="module" id="final-summary-id" style="display: none;">
                 <h2>Podsumowanie końcowe</h2>
                 <hr>
@@ -855,7 +839,6 @@
                 <button id="return-to-start-5-id">Rozpocznij od początku</button>
             </div>
 
-            <!-- Div zawierający ekran końcowy -->
             <div class="module" id="finish-id" style="display: none">
                 <h3>Dziękujemy za wybór linii Flat Earth Aviation. Życzymy udanej podróży.</h3>
                 <hr>
@@ -864,7 +847,6 @@
 
         </article>
 
-        <!-- Wypełnienie prawego paska bocznego -->
         <aside>
             <h2>Podsumowanie</h2>
             <p class="__narrow" id="sump1">Lot z: <span id="sum1"></span></p>

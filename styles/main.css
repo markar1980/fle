@@ -1,6 +1,6 @@
 body {
   width: 90%;
-  min-width: 500px;
+  min-width: 450px;
   max-width: 1200px;
   margin: 1em auto;
   background-image: url(../assets/background1.jpg);
@@ -41,7 +41,6 @@ li {
 }
 
 li .module__radio {
-  /* display: block; */
   margin-left: 10px;
   margin-top: 10px;
   float: left;
