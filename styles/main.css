@@ -1,6 +1,6 @@
 body {
   width: 90%;
-  min-width: 450px;
+  min-width: 375px;
   max-width: 1200px;
   margin: 1em auto;
   background-image: url(../assets/background1.jpg);
@@ -214,6 +214,9 @@ article .module {
 
 .module__seat:hover {
   cursor: pointer;
+  fill: royalblue;
+  stroke: navy;
+  border-radius: 1px;
 }
 
 .module__planeType {

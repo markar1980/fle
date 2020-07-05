@@ -363,7 +363,7 @@ function chooseSeat() {
       seats.push(chooseSeatId);
       seatsDisplay.push(seatIdFragment);
       seatsSorted = seatsDisplay.sort();
-      document.getElementById("sum15").innerHTML = seatsSorted;
+      sum15Var.innerHTML = seatsSorted;
       changeColor();
     }
   }
@@ -384,7 +384,7 @@ function resetSeats() {
   }
   seats = [];
   seatsDisplay = [];
-  document.getElementById("sum15").innerHTML = "";
+  sum15Var.innerHTML = "";
 }
 
 document.getElementById("return-to-search-id-s").onclick = returnToResults2;
@@ -497,33 +497,33 @@ function removeChildren(parentNode) {
 }
 
 function cabinbagChange(checkbox) {
-  var cabinbagNumSpan = document.getElementById('sum16').innerHTML;
+  var cabinbagNumSpan = sum16Var.innerHTML;
   var cabinbagNum = isNaN(parseInt(cabinbagNumSpan)) ? 0 : parseInt(cabinbagNumSpan);
   checkbox.checked ? cabinbagNum++ : cabinbagNum--;
   if (returnVariable.checked) {
-    document.getElementById('sum16').innerHTML = cabinbagNum;
-    document.getElementById('sum17').innerHTML = 2 * cabinbagNum * searchResult.bag1 + ",00 zł";
-    document.getElementById("sum20").innerHTML = (searchResult.price * 2 * searchResult.passengers + 2 * cabinbagNum * searchResult.bag1 + 2 * parseInt(document.getElementById('sum19').innerHTML) + ",00 zł");
+    sum16Var.innerHTML = cabinbagNum;
+    sum17Var.innerHTML = 2 * cabinbagNum * searchResult.bag1 + ",00 zł";
+    sum20Var.innerHTML = (searchResult.price * 2 * searchResult.passengers + 2 * cabinbagNum * searchResult.bag1 + 2 * parseInt(sum19Var.innerHTML) + ",00 zł");
   } else {
-    document.getElementById('sum16').innerHTML = cabinbagNum;
-    document.getElementById('sum17').innerHTML = cabinbagNum * searchResult.bag1 + ",00 zł";
-    document.getElementById("sum20").innerHTML = (searchResult.price * searchResult.passengers + cabinbagNum * searchResult.bag1 + parseInt(document.getElementById('sum19').innerHTML) + ",00 zł");
+    sum16Var.innerHTML = cabinbagNum;
+    sum17Var.innerHTML = cabinbagNum * searchResult.bag1 + ",00 zł";
+    sum20Var.innerHTML = (searchResult.price * searchResult.passengers + cabinbagNum * searchResult.bag1 + parseInt(sum19Var.innerHTML) + ",00 zł");
   }
 }
 
 function registerChange(checkbox) {
-  var registerNumSpan = document.getElementById('sum18').innerHTML;
+  var registerNumSpan = sum18Var.innerHTML;
   var registerNum = isNaN(parseInt(registerNumSpan)) ? 0 : parseInt(registerNumSpan);
 
   checkbox.checked ? registerNum++ : registerNum--;
   if (returnVariable.checked) {
-    document.getElementById('sum18').innerHTML = registerNum;
-    document.getElementById('sum19').innerHTML = 2 * registerNum * searchResult.bag2 + ",00 zł";
-    document.getElementById("sum20").innerHTML = (searchResult.price * 2 * searchResult.passengers + 2 * parseInt(document.getElementById('sum17').innerHTML) + 2 * registerNum * searchResult.bag2 + ",00 zł");
+    sum18Var.innerHTML = registerNum;
+    sum19Var.innerHTML = 2 * registerNum * searchResult.bag2 + ",00 zł";
+    sum20Var.innerHTML = (searchResult.price * 2 * searchResult.passengers + 2 * parseInt(sum17Var.innerHTML) + 2 * registerNum * searchResult.bag2 + ",00 zł");
   } else {
-    document.getElementById('sum18').innerHTML = registerNum;
-    document.getElementById('sum19').innerHTML = registerNum * searchResult.bag2 + ",00 zł";
-    document.getElementById("sum20").innerHTML = (searchResult.price * searchResult.passengers + parseInt(document.getElementById('sum17').innerHTML) + registerNum * searchResult.bag2 + ",00 zł");
+    sum18Var.innerHTML = registerNum;
+    sum19Var.innerHTML = registerNum * searchResult.bag2 + ",00 zł";
+    sum20Var.innerHTML = (searchResult.price * searchResult.passengers + parseInt(sum17Var.innerHTML) + registerNum * searchResult.bag2 + ",00 zł");
   }
 }
 
@@ -639,10 +639,10 @@ function returnToChooseSeat() {
     smAirbusVar.style.display = "block";
   }
   resetSeats();
-  document.getElementById('sum16').innerHTML = 0;
-  document.getElementById('sum17').innerHTML = sumValueArray[16];
-  document.getElementById('sum18').innerHTML = 0;
-  document.getElementById('sum19').innerHTML = sumValueArray[18];
+  sum16Var.innerHTML = 0;
+  sum17Var.innerHTML = sumValueArray[16];
+  sum18Var.innerHTML = 0;
+  sum19Var.innerHTML = sumValueArray[18];
   document.getElementById('sum20').innerHTML = sumValueArray[19];
   removeChildren(passOptVar);
 }
