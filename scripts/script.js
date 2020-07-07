@@ -130,7 +130,8 @@ function searchFlight(jsonFlights) {
   var leavingDate = leavingDateVariable.value;
   var returnDate = returnDateVariable.value;
   const numberPassengers = numbPassVar.value;
-  for (let i = 0; i < jsonFlights.length; i++) {
+  const jsonFlightsLength = jsonFlights.length;
+  for (let i = 0; i < jsonFlightsLength; i++) {
     if (
       (flightFrom == jsonFlights[i].start) &&
       (flightTo == jsonFlights[i].end)
