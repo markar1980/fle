@@ -165,7 +165,7 @@ function searchFlight(jsonFlights) {
 
   if (returnFlight == true) {
     returnResult = {};
-    for (let j = 0; j < jsonFlights.length; j++) {
+    for (let j = 0; j < jsonFlightsLength; j++) {
       if (
         (flightTo == jsonFlights[j].start) &&
         (flightFrom == jsonFlights[j].end)
